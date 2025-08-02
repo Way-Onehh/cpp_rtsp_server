@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.12)
+project(rtsp_server)
+
+# message("启用asan")
+# add_compile_options(-fsanitize=address)
+# add_link_options(-fsanitize=address)
+
+add_executable(server server.cpp)
+target_include_directories(server   PRIVATE .)
+
+add_executable(client client.cpp)
+target_include_directories(client   PRIVATE .)
+
+add_executable(rtsp_test rtsp_test.cpp)
