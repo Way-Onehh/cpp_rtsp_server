@@ -1,28 +1,41 @@
-#include<rtsp_server.hpp>
-#include<threadpool.hpp>
 #include<iostream>
+
+#include<threadpool.hpp>
+#include<rtsp_server.hpp>
+#include<stream_server.hpp>
+#include<dgram_server.hpp>
 #include<rtsp.hpp>
 #include<log.hpp>
 int main(int argc, char const *argv[])
 {   
     try
     {
-        rtsp_server srv;
-        srv.bind("0.0.0.0",8881);
-        srv.listen();
-        DLOG(INFO,"server listen at %s:%d",srv.addr,srv.port);
-        threadpool polls(12);
         DLOG(INFO,"%s","threadpoll start");
-        while (1)    
-        {   
-            auto ret = polls.submit(std::bind(&stream_server::accept,  &srv));
-            ret.wait();
-        }
+        threadpool polls(12);
+
+        rtsp_server srv(polls);
+        srv.bind("0.0.0.0",8554);
+        srv.listen();
+        srv.start();
+        DLOG(INFO,"server started at %s:%d",srv.addr,srv.port);
+        
+        dgram_server srv1(polls);
+        srv1.bind("0.0.0.0",8000);
+        srv1.start();
+        DLOG(INFO,"server started at %s:%d",srv1.addr,srv1.port);
+        
+        dgram_server srv2(polls);
+        srv2.bind("0.0.0.0",8001);
+        srv2.start();
+        DLOG(INFO,"server started at %s:%d",srv2.addr,srv2.port);
+        polls.keep();
     }
     catch(const std::exception& e)
     {
         DLOG(EXCEP,"%s",e.what());
     }
+
+    DLOG(INFO,"%s","main exit");
 }
 
 // #include<dgram_server.hpp>
@@ -107,3 +120,20 @@ int main(int argc, char const *argv[])
 //     format fmt(sdp);
 //     return 0;
 // };
+
+// #include <format.hpp>
+// #include <iostream>
+// int main()
+// {
+//     stream ss;
+//     ss.append("123",4);
+//     ss.append("22123",6); 
+//     ss.append("992123",7); 
+//     for (size_t i = 0; i < ss.size(); i++)
+//     {
+//         printf("%s\n",ss.at(i).data());
+//     }
+    
+// }
+
+

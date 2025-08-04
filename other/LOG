@@ -1,2 +1,4 @@
 7.31    添加线程池，rtsp协议报文，rtsp服务器支持 OPTIONS 方法
 8.1     添加日志库 SDP报文
+8.2     添加session
+8.3     研究rtp传输

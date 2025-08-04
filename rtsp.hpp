@@ -53,12 +53,13 @@ public:
         //校验头部字段 
         while (std::getline(iss, line) && line.find("v=") != 0) {
             if (line.empty())  continue;  // 跳过空行
+            if (line == "\r"|| line == "\r\n") break;
             if (!validate_header_line(line)) throw std::runtime_error("Invalid header format");
  
             size_t colon_pos = line.find(':'); 
             std::string key = line.substr(0,  colon_pos);
             std::string value = line.substr(colon_pos  + 1);
- 
+            
             trim_whitespace(key);
             trim_whitespace(value);
             if (key.empty())  throw std::runtime_error("Empty header key");
@@ -89,6 +90,16 @@ public:
 
         oss << payload;
         return oss.str(); 
+    }
+
+    static string getroot(const Url &url)
+    {
+        return _get_url_(url,3);
+    }
+
+    static string getstream(const Url &url)
+    {
+        return _get_url_(url,4);
     }
 private:
     Method parse_method(const std::string& method_str) {
@@ -146,6 +157,31 @@ private:
             return !std::isspace(ch); 
         }).base(), s.end()); 
     }
+
+    static string _get_url_(const Url &url,size_t n)
+    {
+        int time = 0;
+        auto it = find_if(url.begin(),url.end(),[&time,&n](char c)
+        {
+            if(c == '/')            time++;
+            if(time == n)           return 1;
+            else                    return 0;
+        });
+        auto pos = distance(url.begin(),it);
+        
+        time = 0;
+        auto it1 = find_if(url.begin(),url.end(),[&time,&n](char c)
+        {
+            if(c == '/')            time++;
+            if(time == n+1)           return 1;
+            else                    return 0;
+        });
+        auto pos1 = distance(url.begin(),it1);
+        
+        return url.substr(pos+1,pos1-pos-1);
+    }
+
+
 
 public:
     Method method;

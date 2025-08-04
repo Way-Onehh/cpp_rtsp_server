@@ -7,50 +7,38 @@
 #include <iostream>
 #include <log.hpp>
 #include <format.hpp>
+#include <session.hpp>
 #include <map>
+#include <memory>
 
 #define BUFSIZE 1024
 
 class rtsp_server : public stream_server
 {
 public:
-    int handle_stream(int fd) override
-    {  
-
-        char buf[BUFSIZE]={};
-        int bytes = read(fd,buf,BUFSIZE);
-        if(bytes > 0 )
-        {
-            try
-            {
-                if(isRtpPacket(buf,bytes))
-                {   
-                    packet pack(buf,bytes);
-                    handle_packet(fd,pack);
-                }else
-                {
-                    request req(buf);
-                    handle_request(fd,req);
-                }
-            }
-            catch(const std::exception& e)
-            {  
-                DLOG(EXCEP,"%s",e.what());
-            }
-        }
-        return jumpdata(fd,buf,BUFSIZE);
-    }
-    
-    //读取剩余数据不处理
-    int jumpdata(int fd,char * buf , int n)
+    rtsp_server(threadpool &threadpool ): stream_server(threadpool)
     {
-        while (1)
+
+    };
+
+    void handle_stream(int fd,char *messages, int size) override
+    {  
+        try
         {
-            int bytes =  read(fd,buf,n); 
-            if( bytes <= 0) return bytes;
+            if(isRtpPacket(messages,size))
+            {   
+                handle_packet(fd,messages,size);
+            }else
+            {
+                request req(messages);
+                handle_request(fd,req);
+            }
+        }
+        catch(const std::exception& e)
+        {  
+            DLOG(EXCEP,"%s",e.what());
         }
     }
-
     void handle_request(int fd,request &req)
     {
         switch (req.method)
@@ -60,6 +48,9 @@ public:
             break;
         case Method::ANNOUNCE:
             handle_ANNOUNCE(fd,req);
+            break;
+        case Method::SETUP:
+            handle_SETUP(fd,req);
             break;
         default:
             break;
@@ -90,15 +81,43 @@ public:
         res.CSeq =  req.CSeq;
         auto && ret = res.serialize();
         write(fd,ret.data(),ret.size());
-        formats.emplace(req.url,req.payload);
+        auto &&root = request::getroot(req.url);
+        formats.emplace(root,req.payload);
+    }
+
+    void handle_SETUP(int fd,request &req)
+    {
+        DLOG(SETUP,"%s","reply");
+        response res;
+        string ret;
+        auto &&root = request::getroot(req.url);
+        auto &&stream = request::getstream(req.url);
+        if(formats.count(root) && formats.at(root).streams.count(stream))
+        {
+            sessions.emplace_back(current_session_index,formats.at(root));
+            res.version = 0;
+            res.code = 200;
+            res.reason = "OK";
+            res.CSeq =  req.CSeq;
+            res.keys["Session"] = to_string(current_session_index);
+            current_session_index ++;
+            ret = res.serialize();
+        }else
+        {
+            res.version = 0;
+            res.code = 404;
+            res.reason = "no found";
+            res.CSeq =  req.CSeq;
+            ret = res.serialize();
+        }
+        write(fd,ret.data(),ret.size());
     }
 
     //test
-    void handle_packet(int fd,packet & packet)
+    void handle_packet(int fd,char * buf, int bytes)
     {
         DLOG(TEST,"%s","rtsp");
-        auto packet_buf = packet.toPacket();
-        write(fd,packet_buf.data(),packet_buf.size());
+        write(fd,buf,bytes);
     }
 
     bool isRtpPacket(const char* data, size_t length) {
@@ -121,6 +140,9 @@ public:
         return true;
     }
 public:
-    std::map<std::string,format> formats;
+    std::map<std::string,Format> formats;
+    std::vector<Session<>> sessions;
+    int current_session_index = 0;
+    std::vector<std::shared_ptr<channel>> channels;
 };
 

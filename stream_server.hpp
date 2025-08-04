@@ -7,21 +7,12 @@
 #include <sys/fcntl.h>
 #include <unistd.h>
 #include <log.hpp>
-// eg:
-//     stream_server srv;
-//     srv.bind("0.0.0.0",8888);
-//     srv.listen();
-//     threadpool polls(12);
-//     while (1)    
-//     {   
-//         auto ret = polls.submit(std::bind(&stream_server::accept,  &srv));
-//         ret.wait();
-//     }
+#include <threadpool.hpp>
 
 class stream_server
 {
 public: 
-    stream_server() :stop(false)
+    stream_server(threadpool & polls) :polls(polls),stop(false)
     {
         srv_fd =  socket(AF_INET,SOCK_STREAM,0);
         int enable = 1;
@@ -87,6 +78,28 @@ public:
         return 0;
     }
 
+    // void start()
+    // {
+    //     DLOG(INFO,"%d",__LINE__)
+    //     auto ret = polls.submit(std::bind(&stream_server::accept,this));
+    //     DLOG(INFO,"%d",__LINE__)
+    //     ret.wait();
+    //     DLOG(INFO,"%d",__LINE__)
+    //     if(!stop)
+    //     auto ret = polls.submit(std::bind(&stream_server::start,this));
+    // }
+
+    void start()
+    {
+        auto call = [this]()
+        {
+            this->accept();
+            if(!this->stop)
+            polls.submit(std::bind(&stream_server::start,this));
+        };
+        polls.submit(call);
+    }
+
     private:
     
     //使用epoll IO复用
@@ -103,7 +116,7 @@ public:
         {
             ev.data.fd = ::accept(this->srv_fd,0,0);
             if (ev.data.fd == -1) {
-                if (errno == EAGAIN) break; 
+                if (errno == EAGAIN|| errno == EWOULDBLOCK) break; 
                 continue;
             }
             ev.events = EPOLLIN | EPOLLET;
@@ -113,41 +126,34 @@ public:
         }
     }
 
-    //处理客户端的数据流与连接与断开
-    void handle_client(int fd)
-    {
-        while (1)
-        {
-            int bytes = handle_stream(fd);
-            if (bytes == -1 && errno == EAGAIN) {
-                break; // 数据已读完 
-            }
-            else if(bytes <= 0)
-            { // 客户端断开 
+    void handle_client(int fd) {
+        std::string packet;
+        char buf[1024]{};
+        bool has_data = 0;
+        while (true) {
+            int bytes = read(fd, buf, sizeof(buf)); // 动态缓冲区大小
+            if (bytes == -1 &&(errno == EAGAIN || errno == EWOULDBLOCK)) break; 
+            else if (bytes <= 0) { 
                 close(fd);
-                DLOG(DISCONN,"fd : %d",fd);
-                epoll_ctl(epoll_fd,EPOLL_CTL_DEL,fd,0);
-                break; 
+                DLOG(DISCONN, "fd: %d", fd);
+                epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, nullptr);
+                break;
+            } 
+            else {
+                packet.append(buf, bytes);
+                has_data = 1;
             }
         }
+        if(has_data)
+            handle_stream(fd,packet.data(),packet.size());
     }
+
     //读取报文，因为不同协议读取报文的流程不同，这里使用多态
-    //返回报文大小 使用沿边触发
-    virtual int handle_stream(int fd)
+    virtual void handle_stream(int fd,char * packet,int size)
     {
-        char buffer[1024]={0};//大于1024 多读几次
-        int bytes = -1;
-
-        bytes = read(fd, buffer, 1024);
-        if (bytes > 0)
-        {
-            buffer[bytes] = '\0';
-            DLOG(INFO,"fd : %d Size : %d\n ", fd , bytes);
-            write(fd, buffer, bytes); // 回显 
-        }
-
-        return bytes;
+        int ret = write(fd,packet,size);
     }
+    
 
 public:
     const char * addr = nullptr;
@@ -157,4 +163,5 @@ private:
     int epoll_fd  = -1;
     struct epoll_event ev,events[1024] = {0};
     bool stop = true;
+    threadpool & polls;
 };

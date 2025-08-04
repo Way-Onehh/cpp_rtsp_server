@@ -1,8 +1,4 @@
-class stream_client
-{
-public:
-    stream_client()
-    {
-        
-    }
-};
+// class rtsp_client
+// {
+//     rtsp_client
+// };

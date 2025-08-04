@@ -67,9 +67,7 @@ int main() {
     // 配置参数
     const std::string output_file = "rtp_test_data.bin"; 
     const int packet_count = 20; // 生成包数量
- 
     // 生成文件 
     generateRtpFile(output_file, packet_count);
- 
     return 0;
 }

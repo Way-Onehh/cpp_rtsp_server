@@ -1,11 +1,39 @@
+#pragma once
 #include <sdp.hpp>
 #include <string>
 #include <map>
+#include <vector>
 using namespace std;
-class format
+
+class stream
+{   
+public:
+    void append(char * buf,size_t n)
+    {
+        index_arr.push_back(make_pair(last_pos,last_pos+n));
+        last_pos += n;
+        data.append(buf,n);
+    }
+    //返回的是拷贝可以避免，扩容失效
+    string at(size_t n)
+    {
+        return data.substr(index_arr[n].first,index_arr[n].second);
+    }
+
+    size_t size()
+    {
+        return index_arr.size();
+    }
+private:
+    string data{};
+    vector<pair<size_t,size_t>> index_arr;
+    int last_pos = 0;
+};
+
+class Format
 {
 public:
-    format(SDP sdp)
+    Format(Sdp sdp)
     {
         if(sdp.mediaDescriptions.empty()) throw runtime_error("no mediaDescriptions");
         for(auto & mdp :sdp.mediaDescriptions)
@@ -16,10 +44,10 @@ public:
                return ret != std::string::npos;
             });
             auto streamname = it->substr(8);
-            data.emplace(streamname,string());
+            streams.emplace(streamname,stream());
         }
-    }  
+    } 
 public:
-    SDP sdp;
-    map<string,string> data;
+    Sdp sdp;
+    map<string,stream> streams;
 };

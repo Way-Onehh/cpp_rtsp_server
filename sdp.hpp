@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
@@ -6,12 +7,12 @@
 #include <stdexcept>
 #include <algorithm>
  
-class SDP {
+class Sdp {
 public:
     // 构造函数
-    SDP() = default;
+    Sdp() = default;
     
-    SDP(const std::string& sdpText) 
+    Sdp(const std::string& sdpText) 
     {
         if(parse(sdpText))  std::runtime_error("invaild sdp");
     }

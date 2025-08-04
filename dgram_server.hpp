@@ -7,13 +7,15 @@
 #include <sys/fcntl.h>
 #include <unistd.h>
 #include <log.hpp>
+#include <threadpool.hpp>
+#include <memory>
 //无需 listen accept 产生新的fd
 //sockfd  bind 地址 从sockfd读取 报文与地址 直接发送给指定地址
 //eg server  或者 client  关闭不会发送报文是无感的
 class dgram_server
 {
 public:
-        dgram_server()  : stop(false)
+    dgram_server(threadpool & polls)  : polls(polls) , stop(false)
     {
         srv_fd =  socket(AF_INET,SOCK_DGRAM,0);
         int enable = 1;
@@ -45,10 +47,23 @@ public:
         }
         return 0;
     }
+
+    void start()
+    {
+        auto call = [this]()
+        {
+            this->handle_client();
+            if(!this->stop)
+            polls.submit(std::bind(&dgram_server::start,this));
+        };
+        polls.submit(call);
+    }
 public:
     const char * addr = nullptr;
     int port = -1;
+
 private:
+    threadpool & polls;
     int srv_fd = -1;
     bool stop = true;
 };

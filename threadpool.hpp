@@ -50,7 +50,15 @@ public:
         cv.notify_one(); 
         return res;
     }
- 
+    
+    void keep()
+    {
+        while (1)
+        {
+            std::this_thread::yield();
+        }
+    }
+
     ~threadpool() {
         {
             std::unique_lock<std::mutex> lock(queue_mutex);
@@ -61,7 +69,8 @@ public:
             if (worker.joinable())  worker.join(); 
         }
     }
- 
+    
+
 private:
     std::vector<std::thread> workers;
     std::queue<std::function<void()>> tasks;
