@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <stdexcept>
@@ -8,7 +9,9 @@
 #include <unistd.h>
 #include <log.hpp>
 #include <threadpool.hpp>
-#include <memory>
+#include <string_view>
+
+#define UDPMAX 1472
 //无需 listen accept 产生新的fd
 //sockfd  bind 地址 从sockfd读取 报文与地址 直接发送给指定地址
 //eg server  或者 client  关闭不会发送报文是无感的
@@ -20,8 +23,14 @@ public:
         srv_fd =  socket(AF_INET,SOCK_DGRAM,0);
         int enable = 1;
         setsockopt(srv_fd , SOL_SOCKET, SO_REUSEPORT, &enable, sizeof(enable));
-        if(srv_fd < 0) throw std::runtime_error("failed init socket");
-        fcntl(srv_fd, F_SETFL,fcntl(srv_fd,  F_GETFL)| O_NONBLOCK); 
+        if(srv_fd < 0) throw std::runtime_error("failed init socket"); 
+
+        //初始化epoll
+        ev.data.fd = this->srv_fd;
+        ev.events = EPOLLIN | EPOLLET;
+        fcntl(ev.data.fd, F_SETFL,fcntl(ev.data.fd,  F_GETFL)| O_NONBLOCK); 
+        this->epoll_fd = epoll_create(1024);
+        epoll_ctl(epoll_fd,EPOLL_CTL_ADD,ev.data.fd,&ev);
     }
     //绑定地址
     void bind(std::string_view addr,int port) 
@@ -35,17 +44,25 @@ public:
     }
 
     //处理客户端
-    virtual int handle_client()
+    int handle_client()
     {
         if(!stop)
         {
-            char buf[1024];
+            std::string packet{};
+            char buf[UDPMAX];
             sockaddr  addr{};
             socklen_t socklen =sizeof(addr);
-            int bytes = recvfrom(srv_fd, buf, sizeof(buf), 0, &addr, &socklen);  
-            sendto(srv_fd,buf,bytes,0,&addr,socklen);
+            int nfds = epoll_wait(epoll_fd,events,1,-1);
+            if (nfds == -1) throw std::runtime_error("failed accept");
+            int bytes = recvfrom(srv_fd, buf, sizeof(buf), 0, &addr, &socklen); 
+            handle_dgram(&addr,socklen,buf,bytes);
         }
         return 0;
+    }
+
+    virtual void handle_dgram(const sockaddr *addr, socklen_t socklen,char * buf,size_t n)
+    {
+        sendto(srv_fd,buf,n,0,addr,socklen);
     }
 
     void start()
@@ -61,9 +78,11 @@ public:
 public:
     const char * addr = nullptr;
     int port = -1;
-
 private:
     threadpool & polls;
-    int srv_fd = -1;
     bool stop = true;
+    int epoll_fd  = -1;
+    struct epoll_event ev,events[1024] = {0};
+protected:  
+    int srv_fd = -1;
 };

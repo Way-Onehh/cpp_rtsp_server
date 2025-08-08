@@ -8,7 +8,8 @@
 #include <unistd.h>
 #include <log.hpp>
 #include <threadpool.hpp>
-
+#include <map>
+#include <memory.h>
 class stream_server
 {
 public: 
@@ -78,17 +79,6 @@ public:
         return 0;
     }
 
-    // void start()
-    // {
-    //     DLOG(INFO,"%d",__LINE__)
-    //     auto ret = polls.submit(std::bind(&stream_server::accept,this));
-    //     DLOG(INFO,"%d",__LINE__)
-    //     ret.wait();
-    //     DLOG(INFO,"%d",__LINE__)
-    //     if(!stop)
-    //     auto ret = polls.submit(std::bind(&stream_server::start,this));
-    // }
-
     void start()
     {
         auto call = [this]()
@@ -98,6 +88,32 @@ public:
             polls.submit(std::bind(&stream_server::start,this));
         };
         polls.submit(call);
+    }
+
+    //当发生拆包时，再次调用这个函数追加剩余数据
+    bool read(int fd,std::string &packet)
+    {
+        char buf[1024]{};
+        bool has_data = 0;
+        int times = 0;
+        while (true) {
+            memset(buf,0,1024);
+            int bytes = ::read(fd, buf, sizeof(buf)); // 动态缓冲区大小
+            if (bytes == -1 &&(errno == EAGAIN || errno == EWOULDBLOCK)) break; 
+            else if (bytes <= 0) { 
+                close(fd);
+                DLOG(DISCONN, "fd: %d", fd);
+                epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, nullptr);
+                clients.erase(fd);
+                break;
+            } 
+            else {
+                packet.append(buf, bytes);
+                has_data = 1;
+                //DLOG(INFO,"%d",bytes);
+            }   
+        }
+        return has_data;
     }
 
     private:
@@ -114,7 +130,9 @@ public:
     {
         while (1)
         {
-            ev.data.fd = ::accept(this->srv_fd,0,0);
+            sockaddr addr{};
+            socklen_t addrlen = sizeof(addr);
+            ev.data.fd = ::accept(this->srv_fd,&addr,&addrlen);
             if (ev.data.fd == -1) {
                 if (errno == EAGAIN|| errno == EWOULDBLOCK) break; 
                 continue;
@@ -122,36 +140,25 @@ public:
             ev.events = EPOLLIN | EPOLLET;
             fcntl(ev.data.fd, F_SETFL,fcntl(ev.data.fd,  F_GETFL)| O_NONBLOCK); 
             epoll_ctl(epoll_fd,EPOLL_CTL_ADD,ev.data.fd,&ev);
+            clients[ev.data.fd] = addr;
             DLOG(CONN,"fd = %d",ev.data.fd);
         }
     }
 
     void handle_client(int fd) {
-        std::string packet;
-        char buf[1024]{};
-        bool has_data = 0;
-        while (true) {
-            int bytes = read(fd, buf, sizeof(buf)); // 动态缓冲区大小
-            if (bytes == -1 &&(errno == EAGAIN || errno == EWOULDBLOCK)) break; 
-            else if (bytes <= 0) { 
-                close(fd);
-                DLOG(DISCONN, "fd: %d", fd);
-                epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, nullptr);
-                break;
-            } 
-            else {
-                packet.append(buf, bytes);
-                has_data = 1;
-            }
+        std::string packet{};
+        if(read(fd,packet))
+        {
+            //DLOG(INFO,"%u",packet.size());
+            handle_stream(fd,packet);
         }
-        if(has_data)
-            handle_stream(fd,packet.data(),packet.size());
     }
 
+
     //读取报文，因为不同协议读取报文的流程不同，这里使用多态
-    virtual void handle_stream(int fd,char * packet,int size)
+    virtual void handle_stream(int fd,std::string packet)
     {
-        int ret = write(fd,packet,size);
+        int ret = write(fd,packet.data(),packet.size());
     }
     
 
@@ -163,5 +170,8 @@ private:
     int epoll_fd  = -1;
     struct epoll_event ev,events[1024] = {0};
     bool stop = true;
+
+protected:
+    std::map<int,sockaddr> clients;
     threadpool & polls;
 };

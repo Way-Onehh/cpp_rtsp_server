@@ -14,7 +14,7 @@ enum Method
     ANNOUNCE,
     SETUP,
     PLAY,
-    RECODE,
+    RECORD,
     TEARDOWN,
     UNKNOWN
 };
@@ -108,7 +108,7 @@ private:
             {"DESCRIBE", Method::DESCRIBE},
             {"ANNOUNCE", Method::ANNOUNCE},
             {"PLAY", Method::PLAY},
-            {"RECODE",Method::RECODE},
+            {"RECORD",Method::RECORD},
             {"SETUP", Method::SETUP},
             {"TEARDOWN",Method::TEARDOWN}
         };
@@ -131,7 +131,7 @@ private:
      //校验起始行格式（如 "DESCRIBE rtsp://example.com  RTSP/1.0"）
     bool validate_start_line(const std::string& line) const {
         static const std::regex rtsp_start_regex(
-            R"(^(OPTIONS|DESCRIBE|ANNOUNCE|PLAY|RECORD|SETUP|TEARDOWN)\s+\S+\s+RTSP/\d\.\d\r?$)");
+            R"((OPTIONS|DESCRIBE|ANNOUNCE|PLAY|RECORD|SETUP|TEARDOWN)\s\S+\s\S+\r$)");
         return std::regex_match(line, rtsp_start_regex);
     }
  
@@ -158,28 +158,30 @@ private:
         }).base(), s.end()); 
     }
 
-    static string _get_url_(const Url &url,size_t n)
-    {
-        int time = 0;
-        auto it = find_if(url.begin(),url.end(),[&time,&n](char c)
-        {
-            if(c == '/')            time++;
-            if(time == n)           return 1;
-            else                    return 0;
-        });
-        auto pos = distance(url.begin(),it);
-        
-        time = 0;
-        auto it1 = find_if(url.begin(),url.end(),[&time,&n](char c)
-        {
-            if(c == '/')            time++;
-            if(time == n+1)           return 1;
-            else                    return 0;
-        });
-        auto pos1 = distance(url.begin(),it1);
-        
-        return url.substr(pos+1,pos1-pos-1);
-    }
+static string _get_url_(const string &url, size_t n) 
+{
+    if (url.empty()  || n == 0) return "";
+ 
+    auto find_slash_pos = [&](size_t target) -> size_t {
+        size_t count = 0;
+        for (size_t i = 0; i < url.size();  ++i) {
+            if (url[i] == '/') {
+                if (++count == target) return i;
+            }
+        }
+        return string::npos; // 未找到时返回npos
+    };
+ 
+    const size_t start_pos = find_slash_pos(n);
+    if (start_pos == string::npos) return ""; // 第n个'/'不存在 
+ 
+    const size_t end_pos = find_slash_pos(n + 1);
+ 
+    // 确保子串有效（start_pos需在end_pos之前）
+    if (start_pos >= end_pos) return "";
+ 
+    return url.substr(start_pos  + 1, end_pos - start_pos - 1);
+}
 
 
 
@@ -217,7 +219,7 @@ public:
             if (line.empty())  continue;
             parse_header_line(line);
         }
- 
+        std::getline(iss, line);
         //解析负载
         if (iss.rdbuf()->in_avail()  > 0) {
             payload.assign(std::istreambuf_iterator<char>(iss),  {});

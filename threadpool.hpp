@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <thread>
 #include <vector>
 #include <queue>
@@ -33,12 +32,12 @@ public:
             });
         }
     }
- 
+
     template <typename F, typename... Args>
     auto submit(F&& f, Args&&... args) -> std::future<decltype(f(args...))> {
         using ReturnType = decltype(f(args...));
         auto task = std::make_shared<std::packaged_task<ReturnType()>>(
-            std::bind(std::forward<F>(f), std::forward<Args>(args)...)
+           std::bind(std::forward<F>(f), std::forward<Args>(args)...)
         );
  
         std::future<ReturnType> res = task->get_future();
@@ -50,7 +49,7 @@ public:
         cv.notify_one(); 
         return res;
     }
-    
+
     void keep()
     {
         while (1)

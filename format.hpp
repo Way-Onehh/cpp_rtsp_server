@@ -3,6 +3,8 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <memory>
+
 using namespace std;
 
 class stream
@@ -44,10 +46,11 @@ public:
                return ret != std::string::npos;
             });
             auto streamname = it->substr(8);
-            streams.emplace(streamname,stream());
+            streams_by_name.emplace(streamname,new stream());
         }
     } 
 public:
     Sdp sdp;
-    map<string,stream> streams;
+    map<string,unique_ptr<stream>> streams_by_name;
+    map<uint32_t,unique_ptr<stream>> streams_by_ssrc;
 };
