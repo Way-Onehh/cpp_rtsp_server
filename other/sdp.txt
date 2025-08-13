@@ -1,0 +1,13 @@
+"v=0\x0d\x0a
+o=- 0 0 IN IP4 127.0.0.1\x0d\x0a
+s=No Name\x0d\x0a
+c=IN IP4 0.0.0.0\x0d\x0a
+t=0 0\x0d\x0a
+m=video 0 RTP/AVP 96\x0d\x0a
+a=control:trackID=0\x0d\x0a
+a=rtpmap:96 H264/90000\x0d\x0a
+a=fmtp:96 packetization-mode=1; profile-level-id=42C01F; sprop-parameter-sets=Z0LAH9oBQBboQAAAAwBAAAAMo8YMqA==aM4PyA==\x0d\x0a
+m=audio 0 RTP/AVP 97\x0d\x0a
+a=control:trackID=1\x0d\x0a
+a=rtpmap:97 mpeg4-generic/44100/2\x0d\x0a
+a=fmtp:97 config=1210; indexdeltalength=3; indexlength=3; mode=AAC-hbr; profile-level-id=1; sizelength=13; streamtype=5\x0d\x0a"

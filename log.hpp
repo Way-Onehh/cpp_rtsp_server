@@ -15,7 +15,7 @@ __inline__ void __log__(STD_STREAM& ostream, bool showFileLine,
     strftime(timeStr, sizeof(timeStr), "%Y-%m-%d %H:%M:%S", localtime(&now));
     
     // 处理可变参数
-    char message[64] = {};
+    char message[1024] = {};
     va_list args;
     va_start(args, format);
     vsnprintf(message, sizeof(message), format, args);

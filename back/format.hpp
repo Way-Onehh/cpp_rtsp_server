@@ -35,7 +35,7 @@ private:
 class Format
 {
 public:
-    Format(Sdp sdp)
+    Format(sdp sdp)
     {
         if(sdp.mediaDescriptions.empty()) throw runtime_error("no mediaDescriptions");
         for(auto & mdp :sdp.mediaDescriptions)
@@ -50,7 +50,7 @@ public:
         }
     } 
 public:
-    Sdp sdp;
+    sdp sdp;
     map<string,unique_ptr<stream>> streams_by_name;
     map<uint32_t,unique_ptr<stream>> streams_by_ssrc;
 };

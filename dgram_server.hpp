@@ -75,6 +75,11 @@ public:
         };
         polls.submit(call);
     }
+
+    int getfd()
+    {
+        return  this->srv_fd;
+    }
 public:
     const char * addr = nullptr;
     int port = -1;
@@ -82,7 +87,7 @@ private:
     threadpool & polls;
     bool stop = true;
     int epoll_fd  = -1;
-    struct epoll_event ev,events[1024] = {0};
+    struct epoll_event ev,events[1];
 protected:  
     int srv_fd = -1;
 };

@@ -4,18 +4,10 @@
 #include <vector>
 #include <map>
 #include <sstream>
-#include <stdexcept>
 #include <algorithm>
- 
-class Sdp {
+#include <fstream>
+class sdp {
 public:
-    // 构造函数
-    Sdp() = default;
-    
-    Sdp(const std::string& sdpText) 
-    {
-        if(parse(sdpText))  std::runtime_error("invaild sdp");
-    }
     // 从字符串解析 SDP 
     bool parse(const std::string& sdpText) {
         clear(); // 清除现有数据
@@ -181,16 +173,7 @@ public:
         
         return oss.str(); 
     }
-    
-    // 序列化为 char* (调用者负责释放内存)
-    char* serializeToCharPtr() const {
-        std::string sdpStr = serialize();
-        char* result = new char[sdpStr.size() + 1];
-        std::copy(sdpStr.begin(),  sdpStr.end(),  result);
-        result[sdpStr.size()] = '\0';
-        return result;
-    }
-    
+
     // 清除所有数据 
     void clear() {
         version.clear(); 
@@ -210,19 +193,80 @@ public:
         mediaDescriptions.clear(); 
     }
     
-    // 获取和设置方法 
-    const std::string& getVersion() const { return version; }
-    void setVersion(const std::string& v) { version = v; }
+        // 主函数：生成SDP fmtp字符串 
+    static std::string generate_fmtp_from_h264_file(const std::string& file_path) {
+        // 打开文件并读取数据 
+        std::ifstream file(file_path, std::ios::binary);
+        if (!file.is_open())  return "";
     
-    const std::string& getOrigin() const { return origin; }
-    void setOrigin(const std::string& o) { origin = o; }
+        const size_t max_read_size = 100000;  // 最大读取100KB
+        std::vector<unsigned char> buffer(max_read_size);
+        file.read(reinterpret_cast<char*>(buffer.data()),  max_read_size);
+        size_t bytes_read = file.gcount(); 
+        buffer.resize(bytes_read); 
     
-    const std::string& getSessionName() const { return sessionName; }
-    void setSessionName(const std::string& s) { sessionName = s; }
+        // NALU解析状态变量 
+        int last_startcode_pos = -1;
+        int last_startcode_len = 0;
+        bool found_sps = false;
+        bool found_pps = false;
+        std::vector<unsigned char> sps_data;
+        std::vector<unsigned char> pps_data;
+        std::string profile_level_id;
     
-    // 其他 getter/setter 方法类似...
+        // 扫描缓冲区查找起始码 
+        for (size_t i = 0; i < buffer.size();)  {
+            // 检查4字节起始码：0x00000001
+            if (i + 3 < buffer.size()  && 
+                buffer[i] == 0x00 && buffer[i+1] == 0x00 && 
+                buffer[i+2] == 0x00 && buffer[i+3] == 0x01) {
+                
+                if (last_startcode_pos != -1) {
+                    process_nalu(buffer, last_startcode_pos + last_startcode_len, i,
+                                found_sps, found_pps, sps_data, pps_data, profile_level_id);
+                }
+                last_startcode_pos = i;
+                last_startcode_len = 4;
+                i += 4;
+                continue;
+            }
+            
+            // 检查3字节起始码：0x000001
+            if (i + 2 < buffer.size()  && 
+                buffer[i] == 0x00 && buffer[i+1] == 0x00 && 
+                buffer[i+2] == 0x01) {
+                
+                if (last_startcode_pos != -1) {
+                    process_nalu(buffer, last_startcode_pos + last_startcode_len, i,
+                                found_sps, found_pps, sps_data, pps_data, profile_level_id);
+                }
+                last_startcode_pos = i;
+                last_startcode_len = 3;
+                i += 3;
+                continue;
+            }
+            
+            i++;
+        }
     
-private:
+        // 处理最后一个NALU单元 
+        if (last_startcode_pos != -1 && (!found_sps || !found_pps)) {
+            process_nalu(buffer, last_startcode_pos + last_startcode_len, buffer.size(), 
+                        found_sps, found_pps, sps_data, pps_data, profile_level_id);
+        }
+    
+        // 生成最终结果
+        if (found_sps && found_pps) {
+            return "profile-level-id=" + profile_level_id + 
+                "; sprop-parameter-sets=" + 
+                base64_encode(sps_data.data(),  sps_data.size())  + "," +
+                base64_encode(pps_data.data(),  pps_data.size()); 
+        }
+    
+        return "";  // 未找到SPS/PPS时返回空字符串 
+    }
+    
+public:
     // SDP 字段
     std::string version;              // v= (协议版本)
     std::string origin;               // o= (源)
@@ -238,12 +282,13 @@ private:
         std::string start;
         std::string stop;
     };
+
     std::vector<Timing> timings;      // t= (时间描述)
     std::vector<std::string> repeatTimes; // r=* (重复时间)
     std::string timeZoneAdjustments;  // z=* (时区调整)
     std::string encryptionKey;        // k=* (加密密钥)
     std::vector<std::string> attributes; // a=* (属性)
-public:  
+
     struct MediaDescription {
         std::string media;            // m= (媒体类型)
         std::string port;             // m= (端口)
@@ -257,7 +302,7 @@ public:
     };
 
     std::vector<MediaDescription> mediaDescriptions;
-    
+private:
     // 验证方法 
     bool isValidVersion(const std::string& v) const {
         try {
@@ -364,5 +409,84 @@ public:
         mediaDescriptions.push_back(md);
         return true;
     }
+
+    // Base64编码函数
+    static std::string base64_encode(const unsigned char* data, size_t length) {
+        const char base64_chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        std::string result;
+        int i = 0;
+        int j = 0;
+        unsigned char char_array_3[3];
+        unsigned char char_array_4[4];
+    
+        while (length--) {
+            char_array_3[i++] = *(data++);
+            if (i == 3) {
+                char_array_4[0] = (char_array_3[0] & 0xfc) >> 2;
+                char_array_4[1] = ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xf0) >> 4);
+                char_array_4[2] = ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
+                char_array_4[3] = char_array_3[2] & 0x3f;
+    
+                for (i = 0; i < 4; i++) {
+                    result += base64_chars[char_array_4[i]];
+                }
+                i = 0;
+            }
+        }
+    
+        if (i) {
+            for (j = i; j < 3; j++) {
+                char_array_3[j] = 0;
+            }
+    
+            char_array_4[0] = (char_array_3[0] & 0xfc) >> 2;
+            char_array_4[1] = ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xf0) >> 4);
+            char_array_4[2] = ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
+            char_array_4[3] = char_array_3[2] & 0x3f;
+    
+            for (j = 0; j < i + 1; j++) {
+                result += base64_chars[char_array_4[j]];
+            }
+    
+            while (i++ < 3) {
+                result += '=';
+            }
+        }
+    
+        return result;
+    }
+    
+    // 处理NALU单元
+    static void process_nalu(const std::vector<unsigned char>& buffer, int start, int end,
+                    bool& found_sps, bool& found_pps,
+                    std::vector<unsigned char>& sps_data,
+                    std::vector<unsigned char>& pps_data,
+                    std::string& profile_level_id) {
+        if (start >= end || end - start < 2) return;
+    
+        // 解析NALU头
+        unsigned char nalu_header = buffer[start];
+        int nal_unit_type = nalu_header & 0x1F;  // 提取低5位 
+    
+        // 计算负载起始位置和大小 
+        int payload_start = start + 1;
+        int payload_size = end - payload_start;
+    
+        if (nal_unit_type == 7 && !found_sps && payload_size >= 3) {
+            // 提取SPS数据并生成profile-level-id
+            sps_data.assign(buffer.begin()  + payload_start, buffer.begin()  + end);
+            char hex_str[7];
+            snprintf(hex_str, sizeof(hex_str), "%02X%02X%02X",
+                    sps_data[0], sps_data[1], sps_data[2]);
+            profile_level_id = hex_str;
+            found_sps = true;
+        } else if (nal_unit_type == 8 && !found_pps) {
+            // 提取PPS数据 
+            pps_data.assign(buffer.begin()  + payload_start, buffer.begin()  + end);
+            found_pps = true;
+        }
+    }
+    
 };
+ 
  

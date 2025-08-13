@@ -13,24 +13,26 @@
 class stream_server
 {
 public: 
-    stream_server(threadpool & polls) :polls(polls),stop(false)
+    stream_server(threadpool & polls) :pools(polls),stop(false)
     {
-        srv_fd =  socket(AF_INET,SOCK_STREAM,0);
-        int enable = 1;
+        //初始化服务器fd
+        srv_fd      =   socket(AF_INET,SOCK_STREAM,0);
+        int enable  =   1;
         setsockopt(srv_fd , SOL_SOCKET, SO_REUSEPORT, &enable, sizeof(enable));
         setsockopt(srv_fd, SOL_SOCKET, SO_LINGER, &enable, sizeof(enable));
         if(srv_fd < 0) throw std::runtime_error("failed init socket");
         
         //初始化epoll
-        ev.data.fd = this->srv_fd;
-        ev.events = EPOLLIN | EPOLLET;
+        ev.data.fd  =   this->srv_fd;
+        ev.events   =   EPOLLIN | EPOLLET;
         fcntl(ev.data.fd, F_SETFL,fcntl(ev.data.fd,  F_GETFL)| O_NONBLOCK); 
         this->epoll_fd = epoll_create(1024);
         epoll_ctl(epoll_fd,EPOLL_CTL_ADD,ev.data.fd,&ev);
     }
+
     ~stream_server()
     {
-        stop = true;
+        stop        =   true;
         close(this->epoll_fd);
         epoll_ctl(epoll_fd,EPOLL_CTL_DEL,srv_fd,0);
         close(this->srv_fd);
@@ -39,9 +41,9 @@ public:
     //绑定地址
     void bind(std::string_view addr,int port) 
     { 
-        struct sockaddr_in server_addr = {AF_INET,htons(port),0,0};
+        struct sockaddr_in server_addr  =   {AF_INET,htons(port),0,0};
         inet_pton(AF_INET,addr.data(),&server_addr.sin_addr);
-        int ret = ::bind(this->srv_fd,(struct sockaddr *) &server_addr,sizeof(server_addr));
+        int ret                         =   ::bind(this->srv_fd,(struct sockaddr *) &server_addr,sizeof(server_addr));
         if(ret < 0) throw std::runtime_error("failed init bind");
         this->port = port;
         this->addr = addr.data();
@@ -51,21 +53,11 @@ public:
     void listen()
     {
         int ret = ::listen(this->srv_fd,128);
-        if(ret < 0) throw std::runtime_error("failed init bind");
+        if(ret < 0) throw std::runtime_error("failed init listen");
     }
     
-    // 接受一次连接
-    // eg:
-    //     stream_server srv;
-    //     srv.bind("0.0.0.0",8888);
-    //     srv.listen();
-    //     threadpool polls(12);
-    //     while (1)    
-    //     {   
-    //         auto ret = polls.submit(std::bind(&stream_server::accept,  &srv));
-    //         ret.wait();
-    //     }
-    int accept()
+    //
+    int accept_epoll()
     {
         if(!stop)
         {
@@ -83,11 +75,11 @@ public:
     {
         auto call = [this]()
         {
-            this->accept();
+            this->accept_epoll();
             if(!this->stop)
-            polls.submit(std::bind(&stream_server::start,this));
+            pools.submit(std::bind(&stream_server::start,this));
         };
-        polls.submit(call);
+        pools.submit(call);
     }
 
     //当发生拆包时，再次调用这个函数追加剩余数据
@@ -173,5 +165,5 @@ private:
 
 protected:
     std::map<int,sockaddr> clients;
-    threadpool & polls;
+    threadpool & pools;
 };

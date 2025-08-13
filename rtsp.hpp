@@ -11,10 +11,8 @@ enum Method
 {
     OPTIONS,
     DESCRIBE,
-    ANNOUNCE,
     SETUP,
     PLAY,
-    RECORD,
     TEARDOWN,
     UNKNOWN
 };
@@ -101,14 +99,22 @@ public:
     {
         return _get_url_(url,4);
     }
+
+    static bool  getport(const std::string &Transport,int &p1 ,int &p2)
+    {
+        std::regex regex(R"(client_port=(\d+)-(\d+))");
+        std::smatch smatch;
+        bool ret = std::regex_search(Transport,smatch,regex);
+        p1 = std::stoi(smatch[1]);
+        p2 = std::stoi(smatch[2]);
+        return ret;
+    }
 private:
     Method parse_method(const std::string& method_str) {
         static const std::map<std::string, Method> method_map = {
             {"OPTIONS", Method::OPTIONS},
             {"DESCRIBE", Method::DESCRIBE},
-            {"ANNOUNCE", Method::ANNOUNCE},
             {"PLAY", Method::PLAY},
-            {"RECORD",Method::RECORD},
             {"SETUP", Method::SETUP},
             {"TEARDOWN",Method::TEARDOWN}
         };
@@ -122,7 +128,8 @@ private:
             {Method::OPTIONS, "OPTIONS"},
             {Method::DESCRIBE, "DESCRIBE"},
             {Method::SETUP, "SETUP"},
-            {Method::PLAY, "PLAY"}
+            {Method::PLAY, "PLAY"},
+            {Method::TEARDOWN, "TEARDOWN"}
         };
         auto it = method_strings.find(m); 
         return (it != method_strings.end())  ? it->second : "UNKNOWN";
@@ -131,7 +138,7 @@ private:
      //校验起始行格式（如 "DESCRIBE rtsp://example.com  RTSP/1.0"）
     bool validate_start_line(const std::string& line) const {
         static const std::regex rtsp_start_regex(
-            R"((OPTIONS|DESCRIBE|ANNOUNCE|PLAY|RECORD|SETUP|TEARDOWN)\s\S+\s\S+\r$)");
+            R"((OPTIONS|DESCRIBE|PLAY|SETUP|TEARDOWN)\s\S+\s\S+\r$)");
         return std::regex_match(line, rtsp_start_regex);
     }
  

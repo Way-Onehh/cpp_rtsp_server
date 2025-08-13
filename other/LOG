@@ -1,4 +1,1030 @@
-7.31    添加线程池，rtsp协议报文，rtsp服务器支持 OPTIONS 方法
-8.1     添加日志库 SDP报文
-8.2     添加session
-8.3     研究rtp传输
+ffplay version 6.1.1-3ubuntu5 Copyright (c) 2003-2023 the FFmpeg developers
+  built with gcc 13 (Ubuntu 13.2.0-23ubuntu3)
+  configuration: --prefix=/usr --extra-version=3ubuntu5 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --disable-omx --enable-gnutls --enable-libaom --enable-libass --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libharfbuzz --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-openal --enable-opencl --enable-opengl --disable-sndio --enable-libvpl --disable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-ladspa --enable-libbluray --enable-libjack --enable-libpulse --enable-librabbitmq --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+Initialized opengl renderer.
+[AVFormatContext @ 0x753d0c000c80] Opening 'build/h264/mystream.h264' for reading
+    nan    :  0.000 fd=   0 aq=    0KB vq=    0KB sq=    0B f=0/0   [file @ 0x753d0c001340] Setting default whitelist 'file,crypto,data'
+[h264 @ 0x753d0c000c80] Format h264 probed with size=2048 and score=51
+[h264 @ 0x753d0c000c80] Before avformat_find_stream_info() pos: 0 bytes read:32768 seeks:0 nb_streams:1
+[h264 @ 0x753d0c001b80] Decoding VUI
+[h264 @ 0x753d0c001b80] sps:0 profile:100/31 poc:0 ref:4 80x45 FRM 8B8 crop:0/0/0/0 VUI 420 1/50 b8 reo:2
+[h264 @ 0x753d0c001b80] pps:0 sps:0 CABAC slice_groups:1 ref:3/1 weighted qp:23/26/-2/-2 LPAR   
+[extract_extradata @ 0x753d0c0dc5c0] nal_unit_type: 7(SPS), nal_ref_idc: 3
+[extract_extradata @ 0x753d0c0dc5c0] nal_unit_type: 8(PPS), nal_ref_idc: 3
+[extract_extradata @ 0x753d0c0dc5c0] nal_unit_type: 6(SEI), nal_ref_idc: 0
+[extract_extradata @ 0x753d0c0dc5c0] nal_unit_type: 5(IDR), nal_ref_idc: 3
+[h264 @ 0x753d0c001b80] nal_unit_type: 7(SPS), nal_ref_idc: 3
+[h264 @ 0x753d0c001b80] nal_unit_type: 8(PPS), nal_ref_idc: 3
+[h264 @ 0x753d0c001b80] nal_unit_type: 6(SEI), nal_ref_idc: 0
+[h264 @ 0x753d0c001b80] nal_unit_type: 5(IDR), nal_ref_idc: 3
+[h264 @ 0x753d0c001b80] Decoding VUI
+[h264 @ 0x753d0c001b80] sps:0 profile:100/31 poc:0 ref:4 80x45 FRM 8B8 crop:0/0/0/0 VUI 420 1/50 b8 reo:2
+[h264 @ 0x753d0c001b80] pps:0 sps:0 CABAC slice_groups:1 ref:3/1 weighted qp:23/26/-2/-2 LPAR   8x8DCT
+[h264 @ 0x753d0c001b80] Green Metadata Info SEI message
+[h264 @ 0x753d0c001b80]   green_metadata_type: 0
+[h264 @ 0x753d0c001b80]   green_metadata_period_type: 0
+[h264 @ 0x753d0c001b80]   SEI GREEN Complexity Metrics: 0.000000 0.000000 0.000000 0.000000
+[h264 @ 0x753d0c001b80] Format yuv420p chosen by get_format().
+[h264 @ 0x753d0c001b80] Reinit context to 1280x720, pix_fmt: yuv420p
+[h264 @ 0x753d0c001b80] default_get_buffer called on pic 0x753d0c0060c0
+[h264 @ 0x753d0c001b80] no picture 
+[h264 @ 0x753d0c001b80] short term list:
+[h264 @ 0x753d0c001b80] long term list:
+[h264 @ 0x753d0c001b80] slice:1 F mb:0 I fix IDR frame:0 poc:65536/65536 ref:0/0 qp:23 loop:1:0:0 weight:0 
+[h264 @ 0x753d0c001b80] no mmco here
+[h264 @ 0x753d0c001b80] remove short 0 count 0
+[h264 @ 0x753d0c001b80] short term list:
+[h264 @ 0x753d0c001b80] 0 fn:0 poc:65536 0x753d0c1ecf00
+[h264 @ 0x753d0c001b80] long term list:
+[h264 @ 0x753d0c000c80] All info found
+[h264 @ 0x753d0c000c80] After avformat_find_stream_info() pos: 21504 bytes read:32768 seeks:0 frames:50
+Input #0, h264, from 'build/h264/mystream.h264':
+  Duration: N/A, bitrate: N/A
+  Stream #0:0, 50, 1/1200000: Video: h264 (High), 1 reference frame, yuv420p(progressive, left), 1280x720, 0/1, 25 fps, 50 tbr, 1200k tbn
+detected 20 logical cores
+[h264 @ 0x753d0c347980] nal_unit_type: 7(SPS), nal_ref_idc: 3
+[h264 @ 0x753d0c347980] nal_unit_type: 8(PPS), nal_ref_idc: 3
+[h264 @ 0x753d0c347980] Decoding VUI
+[h264 @ 0x753d0c347980] sps:0 profile:100/31 poc:0 ref:4 80x45 FRM 8B8 crop:0/0/0/0 VUI 420 1/50 b8 reo:2
+[h264 @ 0x753d0c347980] pps:0 sps:0 CABAC slice_groups:1 ref:3/1 weighted qp:23/26/-2/-2 LPAR   8x8DCT
+[h264 @ 0x753d0c347980] nal_unit_type: 7(SPS), nal_ref_idc: 3
+[h264 @ 0x753d0c347980] nal_unit_type: 8(PPS), nal_ref_idc: 3
+[h264 @ 0x753d0c347980] nal_unit_type: 6(SEI), nal_ref_idc: 0
+[h264 @ 0x753d0c347980] nal_unit_type: 5(IDR), nal_ref_idc: 3
+[h264 @ 0x753d0c347980] Decoding VUI
+[h264 @ 0x753d0c347980] sps:0 profile:100/31 poc:0 ref:4 80x45 FRM 8B8 crop:0/0/0/0 VUI 420 1/50 b8 reo:2
+[h264 @ 0x753d0c347980] pps:0 sps:0 CABAC slice_groups:1 ref:3/1 weighted qp:23/26/-2/-2 LPAR   8x8DCT
+[h264 @ 0x753d0c347980] Green Metadata Info SEI message
+[h264 @ 0x753d0c347980]   green_metadata_type: 0
+[h264 @ 0x753d0c347980]   green_metadata_period_type: 0
+[h264 @ 0x753d0c347980]   SEI GREEN Complexity Metrics: 0.000000 0.000000 0.000000 0.000000
+[h264 @ 0x753d0c347980] Format yuv420p chosen by get_format().
+[h264 @ 0x753d0c347980] Reinit context to 1280x720, pix_fmt: yuv420p
+[h264 @ 0x753d0c347980] default_get_buffer called on pic 0x753d0c006780
+[h264 @ 0x753d0c347980] no picture 
+[h264 @ 0x753d0c347980] short term list:
+[h264 @ 0x753d0c347980] long term list:
+[h264 @ 0x753d0c347980] slice:1 F mb:0 I fix IDR frame:0 poc:65536/65536 ref:0/0 qp:23 loop:1:0:0 weight:0 
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 11 field 0
+[h264 @ 0x753d0c1131c0] no mmco here
+[h264 @ 0x753d0c1131c0] remove short 0 count 0
+[h264 @ 0x753d0c1131c0] short term list:
+[h264 @ 0x753d0c1131c0] 0 fn:0 poc:65536 0x753cf40d3cc0
+[h264 @ 0x753d0c1131c0] long term list:
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 27 field 0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    5KB sq=    0B f=0/0   [h264 @ 0x753d0c1131c0] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 2
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 43 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 59 field 0
+[h264 @ 0x753d0c1131c0] default_get_buffer called on pic 0x753d0c113c40
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 75 field 0
+[h264 @ 0x753d0c1131c0] no picture 
+[h264 @ 0x753d0c1131c0] short term list:
+[h264 @ 0x753d0c1131c0] 0 fn:0 poc:65536 0x753cf40d3cc0
+[h264 @ 0x753d0c1131c0] long term list:
+[h264 @ 0x753d0c1131c0] slice:1 F mb:0 P fix frame:1 poc:65544/65544 ref:1/1 qp:23 loop:1:0:0 weight:0 
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 91 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 11 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 27 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 43 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 59 field 0
+[h264 @ 0x753d0c347980] thread awaiting 96 field 0 from 0x753cf40d3940
+[h264 @ 0x753d0c34aac0] no mmco here
+[h264 @ 0x753d0c34aac0] remove short 1 count 1
+[h264 @ 0x753d0c34aac0] 0 0 0x753d0c565d90
+[h264 @ 0x753d0c34aac0] short term list:
+[h264 @ 0x753d0c34aac0] 0 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c34aac0] 1 fn:0 poc:65536 0x753cf40d3cc0
+[h264 @ 0x753d0c34aac0] long term list:
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 107 field 0
+[h264 @ 0x753d0c34aac0] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 2
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 123 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 75 field 0
+[h264 @ 0x753d0c34aac0] default_get_buffer called on pic 0x753d0c34b9c0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 139 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 155 field 0
+[h264 @ 0x753d0c34aac0] short term list:
+[h264 @ 0x753d0c34aac0] 0 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c34aac0] 1 fn:0 poc:65536 0x753cf40d3cc0
+[h264 @ 0x753d0c34aac0] long term list:
+[h264 @ 0x753d0c34aac0] slice:1 F mb:0 B fix frame:2 poc:65540/65540 ref:1/1 qp:30 loop:1:0:0 weight:0 SPAT
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 91 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 171 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 11 field 0
+[h264 @ 0x753d0c3d8440] no mmco here
+[h264 @ 0x753d0c3d8440] remove short 2 count 2
+[h264 @ 0x753d0c3d8440] 0 1 0x753d0c620d50
+[h264 @ 0x753d0c3d8440] 1 0 0x753d0c620a50
+[h264 @ 0x753d0c3d8440] short term list:
+[h264 @ 0x753d0c3d8440] 0 fn:2 poc:65540 0x753cec044e40
+[h264 @ 0x753d0c3d8440] 1 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c3d8440] 2 fn:0 poc:65536 0x753cf40d3cc0
+[h264 @ 0x753d0c3d8440] long term list:
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 27 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 107 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 187 field 0
+[h264 @ 0x753d0c3d8440] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 43 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 123 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 203 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 59 field 0
+[h264 @ 0x753d0c3d8440] default_get_buffer called on pic 0x753d0c3e2380
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 139 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 155 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 75 field 0
+[h264 @ 0x753d0c3d8440] short term list:
+[h264 @ 0x753d0c3d8440] 0 fn:2 poc:65540 0x753cec044e40
+[h264 @ 0x753d0c3d8440] 1 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c3d8440] 2 fn:0 poc:65536 0x753cf40d3cc0
+[h264 @ 0x753d0c3d8440] long term list:
+[h264 @ 0x753d0c3d8440] slice:1 F mb:0 B fix frame:3 poc:65538/65538 ref:1/2 qp:32 loop:1:0:0 weight:2 SPAT
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 91 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 219 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 171 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 80 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3ec400] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 107 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 235 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 187 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 96 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 112 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 123 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 251 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 203 field 0
+[h264 @ 0x753d0c3ec400] default_get_buffer called on pic 0x753d0c3f6580
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 139 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 128 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 267 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 219 field 0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    5KB sq=    0B f=0/0   [h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 155 field 0
+[h264 @ 0x753d0c3ec400] short term list:
+[h264 @ 0x753d0c3ec400] 0 fn:2 poc:65540 0x753cec044e40
+[h264 @ 0x753d0c3ec400] 1 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c3ec400] 2 fn:0 poc:65536 0x753cf40d3cc0
+[h264 @ 0x753d0c3ec400] long term list:
+[h264 @ 0x753d0c3ec400] slice:1 F mb:0 B fix frame:3 poc:65542/65542 ref:2/1 qp:32 loop:1:0:0 weight:2 SPAT
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 283 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 235 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 171 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 144 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 160 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c391140] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 2
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 299 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 251 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 187 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 176 field 0 from 0x753cec044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c34aac0] thread awaiting 192 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c391140] default_get_buffer called on pic 0x753d0c39b680
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 267 field 0
+[h264 @ 0x753d0c347980] thread awaiting 304 field 0 from 0x753cf40d3940
+[h264 @ 0x753d0c34aac0] thread awaiting 192 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 315 field 0
+[h264 @ 0x753d0c391140] short term list:
+[h264 @ 0x753d0c391140] 0 fn:2 poc:65540 0x753cec044e40
+[h264 @ 0x753d0c391140] 1 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c391140] 2 fn:0 poc:65536 0x753cf40d3cc0
+[h264 @ 0x753d0c391140] long term list:
+[h264 @ 0x753d0c391140] slice:1 F mb:0 P fix frame:3 poc:65552/65552 ref:4/1 qp:23 loop:1:0:0 weight:1 
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 331 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 203 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 283 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 11 field 0
+[h264 @ 0x753d0c3a5280] no mmco here
+[h264 @ 0x753d0c3a5280] remove short 3 count 3
+[h264 @ 0x753d0c3a5280] 0 2 0x753d0c851690
+[h264 @ 0x753d0c3a5280] 1 1 0x753d0c851390
+[h264 @ 0x753d0c3a5280] 2 0 0x753d0c851090
+[h264 @ 0x753d0c3a5280] short term list:
+[h264 @ 0x753d0c3a5280] 0 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c3a5280] 1 fn:2 poc:65540 0x753cec044e40
+[h264 @ 0x753d0c3a5280] 2 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c3a5280] 3 fn:0 poc:65536 0x753cf40d3cc0
+[h264 @ 0x753d0c3a5280] long term list:
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 299 field 0
+[h264 @ 0x753d0c347980] thread awaiting 336 field 0 from 0x753cf40d3940
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 347 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 208 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 219 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 208 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 2
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 27 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 315 field 0
+[h264 @ 0x753d0c347980] thread awaiting 352 field 0 from 0x753cf40d3940
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 235 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 224 field 0 from 0x753cec044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c34aac0] thread awaiting 240 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 43 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 59 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 251 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 240 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] default_get_buffer called on pic 0x753d0c3af400
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 363 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 75 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 267 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 256 field 0 from 0x753cec044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c34aac0] thread awaiting 272 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 331 field 0
+[h264 @ 0x753d0c347980] thread awaiting 368 field 0 from 0x753cf40d3940
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 91 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 283 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 272 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] short term list:
+[h264 @ 0x753d0c3a5280] 0 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c3a5280] 1 fn:2 poc:65540 0x753cec044e40
+[h264 @ 0x753d0c3a5280] 2 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c3a5280] 3 fn:0 poc:65536 0x753cf40d3cc0
+[h264 @ 0x753d0c3a5280] long term list:
+[h264 @ 0x753d0c3a5280] slice:1 F mb:0 B fix frame:4 poc:65548/65548 ref:3/1 qp:30 loop:1:0:0 weight:2 SPAT
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 107 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 299 field 0
+[h264 @ 0x753d0c1131c0] thread awaiting 336 field 0 from 0x753cf8044ec0
+[h264 @ 0x753d0c34aac0] thread awaiting 288 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 379 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 11 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 27 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 123 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 288 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 304 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 395 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 347 field 0
+[h264 @ 0x753d0c3b9480] mmco:1 0 0
+[h264 @ 0x753d0c3b9480] 0 3 0x753d0c90c950
+[h264 @ 0x753d0c3b9480] 1 2 0x753d0c90c350
+[h264 @ 0x753d0c3b9480] 2 1 0x753d0c90c050
+[h264 @ 0x753d0c3b9480] 3 0 0x753d0c90bd50
+[h264 @ 0x753d0c3b9480] mmco: unref short 0 count 4
+[h264 @ 0x753d0c3b9480] remove short 0 count 4
+[h264 @ 0x753d0c3b9480] 0 3 0x753d0c90c950
+[h264 @ 0x753d0c3b9480] 1 2 0x753d0c90c350
+[h264 @ 0x753d0c3b9480] 2 1 0x753d0c90c050
+[h264 @ 0x753d0c3b9480] 3 0 0x753d0c90bd50
+[h264 @ 0x753d0c3b9480] mmco:1 2 0
+[h264 @ 0x753d0c3b9480] 0 3 0x753d0c90c950
+[h264 @ 0x753d0c3b9480] 1 2 0x753d0c90c350
+[h264 @ 0x753d0c3b9480] mmco: unref short 2 count 3
+[h264 @ 0x753d0c3b9480] remove short 2 count 3
+[h264 @ 0x753d0c3b9480] 0 3 0x753d0c90c950
+[h264 @ 0x753d0c3b9480] 1 2 0x753d0c90c350
+[h264 @ 0x753d0c3b9480] remove short 4 count 2
+[h264 @ 0x753d0c3b9480] 0 3 0x753d0c90c950
+[h264 @ 0x753d0c3b9480] 1 1 0x753d0c90c050
+[h264 @ 0x753d0c3b9480] short term list:
+[h264 @ 0x753d0c3b9480] 0 fn:4 poc:65548 0x753cdc044e00
+[h264 @ 0x753d0c3b9480] 1 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c3b9480] 2 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c3b9480] long term list:
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 411 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 363 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 315 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 43 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 139 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 304 field 0 from 0x753cec044dc0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    5KB sq=    0B f=0/0   [h264 @ 0x753d0c3b9480] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 427 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 379 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 395 field 0
+[h264 @ 0x753d0c347980] thread awaiting 432 field 0 from 0x753cf40d3940
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 59 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 155 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 320 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3b9480] default_get_buffer called on pic 0x753d0c3b9d80
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 443 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 331 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 320 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 75 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 171 field 0
+[h264 @ 0x753d0c3b9480] short term list:
+[h264 @ 0x753d0c3b9480] 0 fn:4 poc:65548 0x753cdc044e00
+[h264 @ 0x753d0c3b9480] 1 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c3b9480] 2 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c3b9480] long term list:
+[h264 @ 0x753d0c3b9480] slice:1 F mb:0 B fix frame:5 poc:65546/65546 ref:1/2 qp:32 loop:1:0:0 weight:2 SPAT
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 91 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 187 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 459 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 411 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 347 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 336 field 0 from 0x753cec044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c34aac0] thread awaiting 352 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 107 field 0
+[h264 @ 0x753d0c358d80] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 203 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 475 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 427 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 363 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 80 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 352 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 123 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 219 field 0
+[h264 @ 0x753d0c358d80] default_get_buffer called on pic 0x753d0c3620c0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 491 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 443 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 379 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 368 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 112 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 368 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 139 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 235 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 507 field 0
+[h264 @ 0x753d0c358d80] short term list:
+[h264 @ 0x753d0c358d80] 0 fn:4 poc:65548 0x753cdc044e00
+[h264 @ 0x753d0c358d80] 1 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c358d80] 2 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c358d80] long term list:
+[h264 @ 0x753d0c358d80] slice:1 F mb:0 B fix frame:5 poc:65550/65550 ref:2/1 qp:32 loop:1:0:0 weight:2 SPAT
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 155 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 251 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 523 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 459 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 395 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 384 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 128 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 384 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 144 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 171 field 0
+[h264 @ 0x753d0c36cec0] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 2
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 267 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 539 field 0
+[h264 @ 0x753d0c36cec0] default_get_buffer called on pic 0x753d0c376bc0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 411 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 400 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 160 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 400 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 160 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 187 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 283 field 0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    5KB sq=    0B f=0/0   [h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 475 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 555 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 571 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 427 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 416 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 176 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 416 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 176 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 203 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 299 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 491 field 0
+[h264 @ 0x753d0c36cec0] short term list:
+[h264 @ 0x753d0c36cec0] 0 fn:4 poc:65548 0x753cdc044e00
+[h264 @ 0x753d0c36cec0] 1 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c36cec0] 2 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c36cec0] long term list:
+[h264 @ 0x753d0c36cec0] slice:1 F mb:0 P fix frame:5 poc:65560/65560 ref:4/1 qp:24 loop:1:0:0 weight:1 
+[h264 @ 0x753d0c3a5280] thread awaiting 192 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 219 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 315 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 507 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 587 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 443 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 432 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 192 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 432 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 11 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 208 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3810c0] no mmco here
+[h264 @ 0x753d0c3810c0] remove short 5 count 3
+[h264 @ 0x753d0c3810c0] 0 4 0x753d0cb3cc90
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 523 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 539 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 459 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 448 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 224 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 448 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 27 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 224 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 235 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 331 field 0
+[h264 @ 0x753d0c3810c0] 1 3 0x753d0cb3cf90
+[h264 @ 0x753d0c3810c0] 2 1 0x753d0cb3c690
+[h264 @ 0x753d0c3810c0] short term list:
+[h264 @ 0x753d0c3810c0] 0 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c3810c0] 1 fn:4 poc:65548 0x753cdc044e00
+[h264 @ 0x753d0c3810c0] 2 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c3810c0] 3 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c3810c0] long term list:
+[h264 @ 0x753d0c3a5280] thread awaiting 240 field 0 from 0x753cdc044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c3810c0] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 2
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 603 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 555 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 475 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 464 field 0 from 0x753cec044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c34aac0] thread awaiting 480 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 251 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 347 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 619 field 0
+[h264 @ 0x753d0c3810c0] default_get_buffer called on pic 0x753d0c3819c0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 571 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 491 field 0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 43 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 480 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 267 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 256 field 0 from 0x753cdc044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c3a5280] thread awaiting 272 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 635 field 0
+[h264 @ 0x753d0c3810c0] short term list:
+[h264 @ 0x753d0c3810c0] 0 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c3810c0] 1 fn:4 poc:65548 0x753cdc044e00
+[h264 @ 0x753d0c3810c0] 2 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c3810c0] 3 fn:1 poc:65544 0x753cf8044f40
+[h264 @ 0x753d0c3810c0] long term list:
+[h264 @ 0x753d0c3810c0] slice:1 F mb:0 B fix frame:6 poc:65556/65556 ref:3/1 qp:30 loop:1:0:0 weight:2 SPAT
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 363 field 0
+[h264 @ 0x753d0c2e4380] mmco:1 1 0
+[h264 @ 0x753d0c2e4380] 0 5 0x753d0cbf7650
+[h264 @ 0x753d0c2e4380] 1 4 0x753d0cbf7950
+[h264 @ 0x753d0c2e4380] 2 3 0x753d0cbf7c50
+[h264 @ 0x753d0c2e4380] 3 1 0x753d0cbf7350
+[h264 @ 0x753d0c2e4380] mmco: unref short 1 count 4
+[h264 @ 0x753d0c2e4380] remove short 1 count 4
+[h264 @ 0x753d0c2e4380] 0 5 0x753d0cbf7650
+[h264 @ 0x753d0c2e4380] 1 4 0x753d0cbf7950
+[h264 @ 0x753d0c2e4380] 2 3 0x753d0cbf7c50
+[h264 @ 0x753d0c2e4380] 3 1 0x753d0cbf7350
+[h264 @ 0x753d0c2e4380] mmco:1 4 0
+[h264 @ 0x753d0c2e4380] 0 5 0x753d0cbf7650
+[h264 @ 0x753d0c2e4380] 1 4 0x753d0cbf7950
+[h264 @ 0x753d0c2e4380] mmco: unref short 4 count 3
+[h264 @ 0x753d0c2e4380] remove short 4 count 3
+[h264 @ 0x753d0c2e4380] 0 5 0x753d0cbf7650
+[h264 @ 0x753d0c2e4380] 1 4 0x753d0cbf7950
+[h264 @ 0x753d0c2e4380] remove short 6 count 2
+[h264 @ 0x753d0c2e4380] 0 5 0x753d0cbf7650
+[h264 @ 0x753d0c2e4380] 1 3 0x753d0cbf7c50
+[h264 @ 0x753d0c2e4380] short term list:
+[h264 @ 0x753d0c2e4380] 0 fn:6 poc:65556 0x753ccc044dc0
+[h264 @ 0x753d0c2e4380] 1 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c2e4380] 2 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c2e4380] long term list:
+[h264 @ 0x753d0c34aac0] thread awaiting 496 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c2e4380] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 11 field 0
+[h264 @ 0x753d0c36cec0] thread awaiting 48 field 0 from 0x753cd8044fc0
+[h264 @ 0x753d0c2e4380] default_get_buffer called on pic 0x753d0c2edb40
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 651 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 587 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 507 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 496 field 0 from 0x753cec044dc0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    5KB sq=    0B f=0/0   [h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 59 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 283 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 272 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 379 field 0
+[h264 @ 0x753d0c2e4380] short term list:
+[h264 @ 0x753d0c2e4380] 0 fn:6 poc:65556 0x753ccc044dc0
+[h264 @ 0x753d0c2e4380] 1 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c2e4380] 2 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c2e4380] long term list:
+[h264 @ 0x753d0c2e4380] slice:1 F mb:0 B fix frame:7 poc:65554/65554 ref:1/2 qp:32 loop:1:0:0 weight:2 SPAT
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 75 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 27 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 299 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 288 field 0 from 0x753cdc044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 395 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 667 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 603 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 523 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 512 field 0 from 0x753cec044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c34aac0] thread awaiting 528 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c2f84c0] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 91 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 43 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 315 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 331 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 304 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 336 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 683 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 619 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 539 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 528 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3810c0] thread awaiting 16 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 107 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 59 field 0
+[h264 @ 0x753d0c2f84c0] default_get_buffer called on pic 0x753d0c301d40
+[h264 @ 0x753d0c3a5280] thread awaiting 304 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 347 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 411 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 719 field 0
+[h264 @ 0x753d0c347980] 0x753cf40d3940 finished 2147483647 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 555 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 544 field 0 from 0x753cec044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c34aac0] thread awaiting 560 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 123 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 75 field 0
+[h264 @ 0x753d0c2f84c0] short term list:
+[h264 @ 0x753d0c2f84c0] 0 fn:6 poc:65556 0x753ccc044dc0
+[h264 @ 0x753d0c2f84c0] 1 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c2f84c0] 2 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c2f84c0] long term list:
+[h264 @ 0x753d0c2f84c0] slice:1 F mb:0 B fix frame:7 poc:65558/65558 ref:2/1 qp:32 loop:1:0:0 weight:2 SPAT
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 571 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 560 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3810c0] thread awaiting 48 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 139 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 91 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 336 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 363 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 352 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 427 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 443 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 80 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 2
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 587 field 0
+[h264 @ 0x753d0c1131c0] thread awaiting 624 field 0 from 0x753cf8044ec0
+[h264 @ 0x753d0c34aac0] thread awaiting 576 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3810c0] thread awaiting 80 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 155 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 107 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 352 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 379 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 395 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 635 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 459 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 96 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] default_get_buffer called on pic 0x753d0c316900
+[h264 @ 0x753d0c34aac0] thread awaiting 576 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c34aac0] thread awaiting 592 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3810c0] thread awaiting 96 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 171 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 123 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 368 field 0 from 0x753cdc044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 411 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 651 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 603 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 475 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 112 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] short term list:
+[h264 @ 0x753d0c30c6c0] 0 fn:6 poc:65556 0x753ccc044dc0
+[h264 @ 0x753d0c30c6c0] 1 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c30c6c0] 2 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c30c6c0] long term list:
+[h264 @ 0x753d0c30c6c0] slice:1 F mb:0 P fix frame:7 poc:65566/65566 ref:4/1 qp:23 loop:1:0:0 weight:1 
+[h264 @ 0x753d0c3a5280] thread awaiting 400 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c320980] no mmco here
+[h264 @ 0x753d0c320980] remove short 7 count 3
+[h264 @ 0x753d0c320980] 0 6 0x753d0ce27690
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 619 field 0
+[h264 @ 0x753d0c1131c0] thread awaiting 656 field 0 from 0x753cf8044ec0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 491 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 128 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c34aac0] thread awaiting 592 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3810c0] thread awaiting 112 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 187 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 139 field 0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    4KB sq=    0B f=0/0   [h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 11 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 416 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 400 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 427 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 667 field 0
+[h264 @ 0x753d0c320980] 1 5 0x753d0ce27c90
+[h264 @ 0x753d0c320980] 2 3 0x753d0ce28290
+[h264 @ 0x753d0c320980] short term list:
+[h264 @ 0x753d0c320980] 0 fn:7 poc:65566 0x753cc8045600
+[h264 @ 0x753d0c320980] 1 fn:6 poc:65556 0x753ccc044dc0
+[h264 @ 0x753d0c320980] 2 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c320980] 3 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c320980] long term list:
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 27 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 416 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 432 field 0 from 0x753cdc044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 683 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 635 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 608 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 507 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 624 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3810c0] thread awaiting 128 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 203 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 155 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 144 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c320980] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 2
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 43 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 443 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 719 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf8044ec0 finished 2147483647 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 640 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 523 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 640 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3810c0] thread awaiting 144 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 219 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 171 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 160 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 59 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 459 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 448 field 0 from 0x753cdc044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c3a5280] thread awaiting 464 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 651 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 539 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 160 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 235 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 187 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 176 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 75 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 475 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 464 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c320980] default_get_buffer called on pic 0x753d0c32a200
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 667 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 656 field 0 from 0x753cec044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c34aac0] thread awaiting 672 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c3810c0] thread awaiting 176 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 251 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 203 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 192 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 91 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 491 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 480 field 0 from 0x753cdc044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c3a5280] thread awaiting 496 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 683 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 672 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 555 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 192 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 267 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 219 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 208 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 107 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 507 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 523 field 0
+[h264 @ 0x753d0c391140] thread awaiting 560 field 0 from 0x753ce8044f40
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 719 field 0
+[h264 @ 0x753d0c34aac0] 0x753cec044dc0 finished 2147483647 field 0
+[h264 @ 0x753d0c34aac0] thread awaiting 688 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 571 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 208 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 283 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 235 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 224 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 123 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 512 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 496 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c320980] short term list:
+[h264 @ 0x753d0c320980] 0 fn:7 poc:65566 0x753cc8045600
+[h264 @ 0x753d0c320980] 1 fn:6 poc:65556 0x753ccc044dc0
+[h264 @ 0x753d0c320980] 2 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c320980] 3 fn:3 poc:65552 0x753ce8044fc0
+[h264 @ 0x753d0c320980] long term list:
+[h264 @ 0x753d0c320980] slice:1 F mb:0 B fix frame:8 poc:65562/65562 ref:3/1 qp:31 loop:1:0:0 weight:2 SPAT
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 299 field 0
+[h264 @ 0x753d0c334b80] mmco:1 3 0
+[h264 @ 0x753d0c334b80] 0 7 0x753d0cee2c50
+[h264 @ 0x753d0c334b80] 1 6 0x753d0cee2350
+[h264 @ 0x753d0c334b80] 2 5 0x753d0cee2950
+[h264 @ 0x753d0c334b80] 3 3 0x753d0cee2f50
+[h264 @ 0x753d0c334b80] mmco: unref short 3 count 4
+[h264 @ 0x753d0c334b80] remove short 3 count 4
+[h264 @ 0x753d0c334b80] 0 7 0x753d0cee2c50
+[h264 @ 0x753d0c334b80] 1 6 0x753d0cee2350
+[h264 @ 0x753d0c334b80] 2 5 0x753d0cee2950
+[h264 @ 0x753d0c334b80] 3 3 0x753d0cee2f50
+[h264 @ 0x753d0c334b80] mmco:1 6 0
+[h264 @ 0x753d0c334b80] 0 7 0x753d0cee2c50
+[h264 @ 0x753d0c334b80] 1 6 0x753d0cee2350
+[h264 @ 0x753d0c334b80] mmco: unref short 6 count 3
+[h264 @ 0x753d0c334b80] remove short 6 count 3
+[h264 @ 0x753d0c334b80] 0 7 0x753d0cee2c50
+[h264 @ 0x753d0c334b80] 1 6 0x753d0cee2350
+[h264 @ 0x753d0c334b80] remove short 8 count 2
+[h264 @ 0x753d0c334b80] 0 7 0x753d0cee2c50
+[h264 @ 0x753d0c334b80] 1 5 0x753d0cee2950
+[h264 @ 0x753d0c334b80] short term list:
+[h264 @ 0x753d0c334b80] 0 fn:8 poc:65562 0x753cbc044e40
+[h264 @ 0x753d0c334b80] 1 fn:7 poc:65566 0x753cc8045600
+[h264 @ 0x753d0c334b80] 2 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c334b80] long term list:
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 251 field 0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 315 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 240 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 139 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 528 field 0 from 0x753cdc044dc0
+    Last message repeated 1 times
+[h264 @ 0x753d0c34aac0] thread awaiting 688 field 0 from 0x753cec044dc0
+[h264 @ 0x753d0c34aac0] New frame, type: I
+[h264 @ 0x753d0c34aac0] 023i  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021I  021i  
+[h264 @ 0x753d0c34aac0] 024I  011I  011I  011I  011I  011I  011I  011I  016i  012I  014i  016i  013i  013i  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  0New frame, type: B
+[h264 @ 0x753d0c3ec400] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  00x753cc8045580 finished 155 field 0
+[h264 @ 0x753d0c34aac0] 10I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  010I  028I  
+[h264 @ 0x753d0c34aac0] 028I  015i  015i  015i  015i  015I  015i  015I  015i  015i  017i  017i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  0x753cd8044fc0 finished 331 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 256 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c3ec400] 30d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  0x753cdc044dc0 finished 539 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 224 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 11 field 0
+[h264 @ 0x753d0c334b80] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 267 field 0
+[h264 @ 0x753d0c34aac0] 015i  015i  015thread awaiting 544 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 544 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3810c0] thread awaiting 256 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 27 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 272 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 283 field 0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 347 field 0
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 171 field 0
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 187 field 0
+[h264 @ 0x753d0c3d8440] New frame, type: B
+[h264 @ 0x753d0c3d8440] 032d  0i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  0x753ccc044d80 finished 299 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 315 field 0
+[h264 @ 0x753d0c36cec0] thread awaiting 352 field 0 from 0x753cd8044fc0
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 203 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 587 field 0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    4KB sq=    0B f=0/0   [h264 @ 0x753d0c3ec400] 030d  030d  030d  030d  030d  030d  030d  030d  030d  0300x753cc8045580 finished 219 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 603 field 0
+[h264 @ 0x753d0c391140] thread awaiting 576 field 0 from 0x753ce8044f40
+[h264 @ 0x753d0c3d8440] 32d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3d8440] 032d  032<  00x753cd8044fc0 finished 363 field 0
+[h264 @ 0x753d0c334b80] default_get_buffer called on pic 0x753d0c33df80
+[h264 @ 0x753d0c3ec400] d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c3ec400] 030d  030<  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  0300x753cd8044fc0 finished 379 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 331 field 0
+[h264 @ 0x753d0c334b80] short term list:
+[h264 @ 0x753d0c334b80] 0 fn:8 poc:65562 0x753cbc044e40
+[h264 @ 0x753d0c334b80] 1 fn:7 poc:65566 0x753cc8045600
+[h264 @ 0x753d0c334b80] 2 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c334b80] long term list:
+[h264 @ 0x753d0c334b80] slice:1 F mb:0 B fix frame:9 poc:65564/65564 ref:2/1 qp:32 loop:1:0:0 weight:2 SPAT
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3810c0] thread awaiting 288 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c34aac0] 015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015i  015I  
+[h264 @ 0x753d0c34aac0] 015I  013I  013I  016i  016i  014i  014i  014i  017i  017i  017thread awaiting 32 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c347980] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 2
+[h264 @ 0x753d0c3810c0] thread awaiting 336 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c3d8440] 32default_get_buffer called on pic 0x753d0c3481c0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 395 field 0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 347 field 0
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 235 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 619 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 555 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 272 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 43 field 0
+[h264 @ 0x753d0c34aac0] i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017i  017I  
+[h264 @ 0x753d0c34aac0] 017I  0 9I  0 9I  0 9i  0 9I  0 9i  0 9i  0 9I  015i  010i  010i  thread awaiting 560 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 560 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3810c0] thread awaiting 352 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 59 field 0
+[h264 @ 0x753d0c320980] thread awaiting 48 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c3d8440] d  032d  032d  032d  032thread awaiting 64 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c3ec400] d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  0    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c391140] 0x753ce8044f40 finished 635 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 571 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 587 field 0
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 75 field 0
+[h264 @ 0x753d0c3d8440] d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  thread awaiting 576 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 603 field 0
+[h264 @ 0x753d0c391140] thread awaiting 640 field 0 from 0x753ce8044f40
+[h264 @ 0x753d0c320980] thread awaiting 80 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c347980] short term list:
+[h264 @ 0x753d0c347980] 0 fn:8 poc:65562 0x753cbc044e40
+[h264 @ 0x753d0c347980] 1 fn:7 poc:65566 0x753cc8045600
+[h264 @ 0x753d0c347980] 2 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c347980] long term list:
+[h264 @ 0x753d0c347980] slice:1 F mb:0 P fix frame:9 poc:65574/65574 ref:4/1 qp:23 loop:1:0:0 weight:1 
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 651 field 0
+[h264 @ 0x753d0c34aac0] 013i  011i  011I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 80x753cdc044dc0 finished 619 field 0
+[h264 @ 0x753d0c391140] thread awaiting 656 field 0 from 0x753ce8044f40
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  thread awaiting 576 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 592 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 91 field 0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 411 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 363 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 352 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 251 field 0
+[h264 @ 0x753d0c3ec400] 30d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d      nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c320980] 0x753cbc044e00 finished 107 field 0
+[h264 @ 0x753d0c320980] thread awaiting 96 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 427 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 379 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 368 field 0 from 0x753ccc044d80
+    Last message repeated 1 times
+[h264 @ 0x753d0c3810c0] thread awaiting 384 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c347980] 0x753cf42deb80 finished 11 field 0
+[h264 @ 0x753d0c1131c0] no mmco here
+[h264 @ 0x753d0c1131c0] remove short 9 count 3
+[h264 @ 0x753d0c1131c0] 0 8 0x753d0c4ab3d0
+[h264 @ 0x753d0c1131c0] 1 7 0x753d0c4ab9d0
+[h264 @ 0x753d0c1131c0] 2 5 0x753d0c4ab6d0
+[h264 @ 0x753d0c1131c0] short term list:
+[h264 @ 0x753d0c1131c0] 0 fn:9 poc:65574 0x753cf42dec00
+[h264 @ 0x753d0c1131c0] 1 fn:8 poc:65562 0x753cbc044e40
+[h264 @ 0x753d0c1131c0] 2 fn:7 poc:65566 0x753cc8045600
+[h264 @ 0x753d0c1131c0] 3 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c1131c0] long term list:
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 267 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 384 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c347980] 0x753cf42deb80 finished 27 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 667 field 0
+[h264 @ 0x753d0c34aac0] I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  thread awaiting 624 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3ec400] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c3ec400] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c3ec400] 030d  030d  030d  030d  030d  030d  030d  030d  0300x753cbc044e00 finished 123 field 0
+[h264 @ 0x753d0c320980] thread awaiting 112 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 443 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 395 field 0
+[h264 @ 0x753d0c1131c0] nal_unit_type: 1(Coded slice of a non-IDR picture), nal_ref_idc: 2
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 283 field 0
+[h264 @ 0x753d0c347980] 0x753cf42deb80 finished 43 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 683 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 635 field 0
+[h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  0320x753cdc044dc0 finished 651 field 0
+[h264 @ 0x753d0c391140] thread awaiting 688 field 0 from 0x753ce8044f40
+[h264 @ 0x753d0c3a5280] thread awaiting 624 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  thread awaiting 400 field 0 from 0x753ccc044d80
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3810c0] thread awaiting 400 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 299 field 0
+[h264 @ 0x753d0c1131c0] default_get_buffer called on pic 0x753d0c1137c0
+[h264 @ 0x753d0c347980] 0x753cf42deb80 finished 59 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 719 field 0
+[h264 @ 0x753d0c3d8440] d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0thread awaiting 128 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 459 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 411 field 0
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8thread awaiting 656 field 0 from 0x753cdc044dc0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3ec400] d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3810c0] thread awaiting 416 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 315 field 0
+[h264 @ 0x753d0c1131c0] short term list:
+[h264 @ 0x753d0c1131c0] 0 fn:9 poc:65574 0x753cf42dec00
+[h264 @ 0x753d0c1131c0] 1 fn:8 poc:65562 0x753cbc044e40
+[h264 @ 0x753d0c1131c0] 2 fn:7 poc:65566 0x753cc8045600
+[h264 @ 0x753d0c1131c0] 3 fn:5 poc:65560 0x753cd8045040
+[h264 @ 0x753d0c1131c0] long term list:
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 139 field 0
+[h264 @ 0x753d0c3d8440] 32d  032d  032d  032d  
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 155 field 0
+[h264 @ 0x753d0c320980] thread awaiting 144 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 475 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 427 field 0
+[h264 @ 0x753d0c3ec400] d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d      nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 491 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 443 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 432 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c3810c0] thread awaiting 416 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 331 field 0
+[h264 @ 0x753d0c347980] 0x753cf42deb80 finished 75 field 0
+[h264 @ 0x753d0c391140] 0x753ce8044f40 finished 2147483647 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 667 field 0
+[h264 @ 0x753d0c3a5280] thread awaiting 640 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c34aac0] I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0thread awaiting 672 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 672 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c1131c0] slice:1 F mb:0 B fix frame:10 poc:65570/65570 ref:3/1 qp:30 loop:1:0:0 weight:2 SPAT
+[h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0New frame, type: B
+[h264 @ 0x753d0c391140] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d   8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c391140] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0x753cbc044e00 finished 171 field 0
+[h264 @ 0x753d0c3ec400] 030d  030d  
+[h264 @ 0x753d0c3ec400] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c3ec400] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c3ec400] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  0032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0320x753ccc044d80 finished 459 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 448 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c3810c0] thread awaiting 464 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 347 field 0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c347980] 0x753cf42deb80 finished 91 field 0
+[h264 @ 0x753d0c3d8440] 32d  032d  032d  032d  032d  032d  0x753cbc044e00 finished 187 field 0
+[h264 @ 0x753d0c320980] thread awaiting 160 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 507 field 0
+[h264 @ 0x753d0c391140] d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c391140] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c391140] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  00x753cdc044dc0 finished 683 field 0
+[h264 @ 0x753d0c34aac0]  8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  thread awaiting 688 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c3a5280] thread awaiting 688 field 0 from 0x753cdc044dc0
+[h264 @ 0x753d0c1131c0] 0x753cf824fbc0 finished 11 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf824fbc0 finished 27 field 0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032d  032d  032d  032d  032d  0x753cd8044fc0 finished 523 field 0
+[h264 @ 0x753d0c36cec0] thread awaiting 496 field 0 from 0x753cd8044fc0
+[h264 @ 0x753d0c3810c0] thread awaiting 448 field 0 from 0x753ccc044d80
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 363 field 0
+[h264 @ 0x753d0c347980] 0x753cf42deb80 finished 107 field 0
+[h264 @ 0x753d0c391140] 32d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c391140] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c391140] 0320x753cdc044dc0 finished 719 field 0
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 80x753cd8044fc0 finished 539 field 0
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 475 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 464 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 379 field 0
+[h264 @ 0x753d0c347980] 0x753cf42deb80 finished 123 field 0
+[h264 @ 0x753d0c391140] d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c358d80] New frame, type: B
+[h264 @ 0x753d0c358d80] 030d  0thread awaiting 192 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c3d8440] 032d  0x753ccc044d80 finished 491 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 480 field 0 from 0x753ccc044d80
+    Last message repeated 1 times
+[h264 @ 0x753d0c3810c0] thread awaiting 496 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c347980] 0x753cf42deb80 finished 139 field 0
+[h264 @ 0x753d0c3a5280] 0x753cdc044dc0 finished 2147483647 field 0
+[h264 @ 0x753d0c391140] d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032New frame, type: P
+[h264 @ 0x753d0c3a5280] 023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  0230x753cf42deb80 finished 155 field 0
+[h264 @ 0x753d0c391140] d  032d  032d  032d  032d  032d  032d  032d  032d  0x753cc8045580 finished 395 field 0
+[h264 @ 0x753d0c3a5280] S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  023S  
+[h264 @ 0x753d0c3a5280] 023S  011>  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  
+[h264 @ 0x753d0c3a5280] 011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  
+[h264 @ 0x753d0c3a5280] 011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  
+[h264 @ 0x753d0c3a5280] 011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  0x753cf824fbc0 finished 43 field 0
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 203 field 0
+[h264 @ 0x753d0c358d80] 30d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c358d80] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  0300x753cbc044e00 finished 219 field 0
+[h264 @ 0x753d0c320980] thread awaiting 208 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c34aac0] I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0New frame, type: B
+[h264 @ 0x753d0c3b9480] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0x753cd8044fc0 finished 555 field 0
+[h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032d  032thread awaiting 496 field 0 from 0x753ccc044d80
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c391140] 032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c391140] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c391140] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  00x753cf42deb80 finished 171 field 0
+[h264 @ 0x753d0c391140] 32d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0320x753cc8045580 finished 411 field 0
+[h264 @ 0x753d0c34aac0]  8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  00x753cf42deb80 finished 187 field 0
+[h264 @ 0x753d0c3ec400] 30d  030d  030d  0d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0320x753cf42deb80 finished 203 field 0
+[h264 @ 0x753d0c3a5280] 011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  
+[h264 @ 0x753d0c3a5280] 011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  0x753cc8045580 finished 427 field 0
+[h264 @ 0x753d0c34aac0]  8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0x753cf42deb80 finished 219 field 0
+[h264 @ 0x753d0c347980] 0x753cf42deb80 finished 235 field 0
+[h264 @ 0x753d0c358d80] d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c391140] d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3b9480] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0320x753cc8045580 finished 443 field 0
+[h264 @ 0x753d0c3d8440] d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0x753cf824fbc0 finished 59 field 0
+[h264 @ 0x753d0c347980] 0x753cf42deb80 finished 251 field 0
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 235 field 0
+[h264 @ 0x753d0c320980] thread awaiting 224 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c391140] d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c391140] 032d  032d  032d  032d  032d  0x753cf42deb80 finished 267 field 0
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 251 field 0
+[h264 @ 0x753d0c320980] thread awaiting 240 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 571 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 507 field 0
+[h264 @ 0x753d0c3ec400] 30d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  00x753cf42deb80 finished 283 field 0
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 267 field 0
+[h264 @ 0x753d0c320980] thread awaiting 256 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 587 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 523 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 512 field 0 from 0x753ccc044d80
+    Last message repeated 1 times
+[h264 @ 0x753d0c3810c0] thread awaiting 528 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c358d80] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030thread awaiting 528 field 0 from 0x753ccc044d80
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3a5280] 011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  
+[h264 @ 0x753d0c3a5280] 011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  00x753cd8044fc0 finished 603 field 0
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 539 field 0
+[h264 @ 0x753d0c358d80] d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  0x753cf42deb80 finished 299 field 0
+[h264 @ 0x753d0c320980] 0x753cbc044e00 finished 283 field 0
+[h264 @ 0x753d0c320980] thread awaiting 272 field 0 from 0x753cbc044e00
+    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3a5280] 11S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  0030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c358d80] 030d  030d  030d  030d  030d  030d  030d  030d  0x753cd8044fc0 finished 619 field 0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 635 field 0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 651 field 0
+[h264 @ 0x753d0c3810c0] thread awaiting 544 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c3b9480] d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3b9480] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032thread awaiting 544 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 555 field 0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 667 field 0
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 459 field 0
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I      nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c358d80] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c358d80] 030d  030d  030d  030d  030d  030d  030d  030d  030<  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c358d80] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  thread awaiting 288 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0thread awaiting 560 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 683 field 0
+[h264 @ 0x753d0c30c6c0] 0x753cc8045580 finished 475 field 0
+[h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032thread awaiting 560 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c34aac0]  8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 830d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c3ec400] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d      nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c3810c0] 0x753ccc044d80 finished 571 field 0
+[h264 @ 0x753d0c3d8440] d  0320x753cf824fbc0 finished 75 field 0
+[h264 @ 0x753d0c1131c0] 0x753cf824fbc0 finished 91 field 0
+[h264 @ 0x753d0c34aac0] I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3b9480] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3b9480] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  11S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  011S  thread awaiting 576 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c3810c0] thread awaiting 576 field 0 from 0x753ccc044d80
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 719 field 0
+[h264 @ 0x753d0c36cec0] 0x753cd8044fc0 finished 2147483647 field 0
+[h264 @ 0x753d0c3d8440] d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3d8440] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3b9480] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3b9480] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032
+[h264 @ 0x753d0c358d80] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c358d80] 030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  030d  
+[h264 @ 0x753d0c358d80] 030d  030032d  0    nan M-V:    nan fd=   0 aq=    0KB vq=    3KB sq=    0B f=0/0   [h264 @ 0x753d0c320980] 0x753cbc044e00 finished 299 field 0
+[h264 @ 0x753d0c3b9480] d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  
+[h264 @ 0x753d0c3b9480] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0x753cbc044e00 finished 315 field 0
+[h264 @ 0x753d0c320980] thread awaiting 304 field 0 from 0x753cbc044e00
+[h264 @ 0x753d0c34aac0] 0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  0 8I  New frame, type: B
+[h264 @ 0x753d0c36cec0] 032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  032d  0
