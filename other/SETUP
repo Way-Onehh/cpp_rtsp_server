@@ -1,4 +1,0 @@
-SETUP rtsp://localhost:8554/mystream/streamid=0 RTSP/1.0
-Transport: RTP/AVP/UDP;unicast;client_port=30530-30531;mode=record
-CSeq: 3
-User-Agent: Lavf61.7.100
