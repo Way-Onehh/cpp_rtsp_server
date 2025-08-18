@@ -1,3 +1,0 @@
-cat ./rtp_test_data.bin | socat   TCP4:localhost:8881 -
-
-printf "OPTIONS rtsp://localhost:8554/mystream RTSP/1.0\nCSeq: 100\nUser-Agent: Lavf61.7.100"  | socat   TCP4:localhost:8881 -
