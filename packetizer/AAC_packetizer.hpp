@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstring>
 #include <memory>
 #include <cstdint>
 #include <algorithm>
@@ -11,7 +12,7 @@
 class AAC_packetizer {
 private:
     // 内部状态跟踪 
-    std::unique_ptr<uint8_t[]> current_frame_;
+    std::shared_ptr<uint8_t[]> current_frame_;
     size_t frame_size_ = 0;
     bool has_more_packets_ = false;
     const size_t mtu_ = 1400;
@@ -28,7 +29,7 @@ public:
     }
 
     auto operator = (
-        std::pair<std::unique_ptr<uint8_t[]>, size_t> nal_unit) {
+        std::pair<std::shared_ptr<uint8_t[]>, size_t> nal_unit) {
         current_frame_ = std::move(nal_unit.first); 
         frame_size_ = nal_unit.second; 
         has_more_packets_ = true;
@@ -40,9 +41,9 @@ public:
     }
     
     // 获取下一个RTP包
-    auto operator()()->std::pair< std::unique_ptr<uint8_t[]>, size_t>  {
+    auto operator()()->std::pair< std::shared_ptr<uint8_t[]>, size_t>  {
         const size_t packet_size = sizeof(rtp_header) + frame_size_ + 4 -7;
-        auto packet = std::make_unique<uint8_t[]>(packet_size);
+        auto packet = std::make_shared<uint8_t[]>(packet_size);
         rtp_header* header = reinterpret_cast<rtp_header*>(packet.get());
         header->version         = 2;
         header->padding         = 0;
@@ -61,14 +62,13 @@ public:
         packet[sizeof(rtp_header)+2]    =   ((frame_size_ - 7) & 0x1FE0) >> 5; //高8位
         packet[sizeof(rtp_header)+3]    =   ((frame_size_ - 7) & 0x1F) << 3;   //低5位
 
-        
-        //DLOG(RTP,"maker %d sequence_number %d timestamp %d  packet_size %u", static_cast<bool>(header->marker),static_cast<int>(ntohs(header->sequence_number)),ntohl(header->timestamp),packet_size);
         has_more_packets_ = false;
         std::copy_n(current_frame_.get()+7, frame_size_ - 7, packet.get() + sizeof(rtp_header) + 4);
         ++sequence_number_;
         this->timestamp_ += this->dtime_;   
         return {std::move(packet), packet_size};
     }
+
 private:
 
 };

@@ -1,11 +1,12 @@
 #pragma once
 
-#include <functional>
+#include <initializer_list>
 #include <map>
 #include <memory>
 #include <string>
 #include <cstdlib>
 #include <cstring>
+#include <string_view>
 #include <unistd.h>
 #include <filesystem>
 #include <sys/socket.h>
@@ -16,29 +17,19 @@
 #include <protocol/sdp.hpp>
 #include <protocol/rtsp.hpp>
 #include <network/session.hpp>
-#include <network/stream_server.hpp>
-#include <network/rtp_server.hpp>
+#include <network/stream_server.h>
+#include <network/rtp_server.h>
+#include <network/server_config.h>
 
 #define BUFSIZE 1024
-
-
-struct DelayDeleter {
-    void operator()(session* fp) const {
-        if (fp) {
-            fp->teardown();
-            delete  fp;
-        }
-    }
-};
 
 class rtsp_server : public stream_server
 {
 public:
-    rtsp_server(threadpool &polls,std::filesystem::path workpath = std::filesystem::current_path()): stream_server(polls)
-    {
-        //初始化两个rtp服务器
-        rtp_servers.push_back(this->pools);
-        rtp_servers.push_back(this->pools);
+    rtsp_server(threadpool &polls,server_config * server_config,std::filesystem::path workpath = std::filesystem::current_path()): stream_server(polls)
+    {   
+        cfg.reset(server_config);
+        cfg->init(&polls);
         this->workpath = workpath;
         if(!std::filesystem::exists(workpath / "h264"))
             std::filesystem::create_directory(workpath / "h264");  
@@ -48,25 +39,25 @@ public:
         {   
             auto it = sessions_by_fd.find(fd);
             if(it == sessions_by_fd.end())  return ;
+            it->second->teardown();
             int id = it->second->id;
             this->sessions_by_id.erase(sessions_by_id.find(id));
             this->sessions_by_fd.erase(it);
         };
     };
-
-    void bind(std::string_view addr, int port , int port1,int port2)
+    
+    void bind(std::string_view addr,std::initializer_list<int> list)
     {   //绑定端口
+        int port = *list.begin();
         stream_server::bind(addr,port);
-        rtp_servers[0].bind(addr,port1);
-        rtp_servers[1].bind(addr,port2);
+        cfg->bind(addr,list);
     }
     
     void start()
     {
         //开始服务器
         stream_server::start();
-        rtp_servers[0].start();
-        rtp_servers[1].start();
+        cfg->start();
     }
 private:
     void handle_stream(int fd,std::string packet) override
@@ -118,9 +109,11 @@ private:
         res.reason = "OK";
         res.CSeq =  req.CSeq;
         res.keys["Public"] = "DESCRIBE,SETUP,PLAY,TEARDOWN";
+        int session_id = req.keys.count("Session")  ? std::stoi(req.keys["Session"])  : current_session_index ;
+        res.keys["Session"]         =  std::to_string(session_id);
         auto && ret = res.serialize();
         write(fd,ret.data(),ret.size());
-        DLOG(OPTIONS,"%s","reply");
+        DLOG(OPTI,"id %d %s ",session_id,"reply");
         return true;
     }
 
@@ -132,7 +125,9 @@ private:
         res.code                        = 404;
         res.reason                      = "NO Found";
         res.CSeq                        =  req.CSeq;
-    
+        int session_id = req.keys.count("Session")  ? std::stoi(req.keys["Session"])  : current_session_index ;
+        res.keys["Session"]         =  std::to_string(session_id);
+
         auto stream = request::getroot(req.url);
         sdp sdp;
         std::filesystem::path stream_path0 = workpath/"h264"/stream += ".h264";
@@ -140,10 +135,10 @@ private:
        
         int flag = 0;
         if(std::filesystem::exists(stream_path0))
-        {flag=1;this->add_video_sdp(sdp,stream_path0);}
+        {flag=1;cfg->add_video_sdp(sdp,stream_path0);}
 
         if(std::filesystem::exists(stream_path1))
-        {flag=1;this->add_audio_sdp(sdp,stream_path1);}
+        {flag=1;cfg->add_audio_sdp(sdp,stream_path1);}
         
         if(flag)
         {
@@ -164,7 +159,7 @@ private:
 
         auto && ret = res.serialize();
         write(fd,ret.data(),ret.size());
-        DLOG(DESCRIBE,"%s","reply");
+        DLOG(DESC,"id %d %s ",session_id,"reply");
         return true;
     }
 
@@ -191,26 +186,22 @@ private:
                 auto session_it =  req.keys.find("Session");
                 if(session_it == req.keys.end())
                 {
-                    std::shared_ptr<session> ptr( new session,DelayDeleter());
-                    auto temp1 =  sessions_by_id.emplace(current_session_index++,ptr);
-                    session_id  = temp1.first->first;
-                    auto temp2 =  sessions_by_fd.emplace(fd,ptr);
-                    session_obj = temp1.first->second.get();
-                    session_obj->id = session_id; 
-                    session_obj->setteardownf([this,temp1,temp2]()
-                    {
-                        this->sessions_by_id.erase(temp1.first);
-                        this->sessions_by_fd.erase(temp2.first);
-                    });
-                    flag = temp1.second;
+                    session_obj = create_session(fd);
+                    flag = 1;
                 }
                 else
                 {
+
                     session_id = std::stoi(session_it->second);
                     auto it = sessions_by_id.find(session_id);
                     if(it != sessions_by_id.end())
                     {
                         session_obj = it->second.get();
+                        flag = 1;
+                    }
+                    else
+                    {
+                        session_obj = create_session(fd);
                         flag = 1;
                     }
                 }
@@ -227,14 +218,14 @@ private:
                     {
                         path =   workpath/"h264"/root += ".h264";
                         SSRC = session_id+100;
-                        session_obj->setup0(pools,rtp_servers[0].getfd(),*reinterpret_cast<sockaddr*>(&addr),path,SSRC,90000/25);
+                        session_obj->setup0(pools, *static_cast<int*>( cfg->getprofile()),*reinterpret_cast<sockaddr*>(&addr),path,SSRC,90000/25);
                     }
 
                     if(streamid == "trackID=1")
                     {
                         path =   workpath/"aac"/root += ".aac";
                         SSRC = session_id+101;
-                        session_obj->setup1(pools,rtp_servers[0].getfd(),*reinterpret_cast<sockaddr*>(&addr),path,SSRC,1025);
+                        session_obj->setup1(pools,*static_cast<int*>( cfg->getprofile()),*reinterpret_cast<sockaddr*>(&addr),path,SSRC,1024);
                     }
 
                     res.version                 = 0;
@@ -242,14 +233,14 @@ private:
                     res.reason                  = "OK";
                     res.CSeq                    =  req.CSeq;
                     res.keys["Session"]         = std::to_string(session_id);
-                    res.keys["Transport"]       = "RTP/AVP;unicast;client_port="+std::to_string(port1)+";server_port="+std::to_string(rtp_servers[0].port)+";ssrc="+std::to_string(SSRC);//不支持rtcp
+                    res.keys["Transport"]       = cfg->Transport(port1,SSRC);//不支持rtcp
                 }
             }
 
         }
         auto && ret = res.serialize();
         write(fd,ret.data(),ret.size());
-        DLOG(SETUP,"%s","reply");
+        DLOG(SETUP,"id %d %s ",session_id,"reply");
         return true;
     }
 
@@ -274,10 +265,9 @@ private:
         auto && ret = res.serialize();
         write(fd,ret.data(),ret.size());
 
-        DLOG(PLAY,"%s","reply");
+        DLOG(PLAY,"id %d %s ",session_id,"reply");
         return true;
     }   
-
 
     bool handle_TEARDOWN(int fd, request &req)
     {
@@ -286,43 +276,31 @@ private:
         res.code                    = 200;
         res.reason                  = "OK";
         res.CSeq                    = req.CSeq;
-        res.keys["Session"]         = req.keys["Session"];
+        auto session_id =std::stoi( req.keys["Session"]);
+        res.keys["Session"]         = session_id;
         auto && ret = res.serialize();
         write(fd,ret.data(),ret.size());
-        DLOG(TEARDOWN,"%s","reply");
+        DLOG(TEAR,"id %d %s ",session_id,"reply");
         return true;
     }
-private:
-    auto add_video_sdp(sdp & sdp,std::string path)->void
-    {
-        auto & mdp =sdp.mediaDescriptions.emplace_back();   
-        mdp.media                       = "video";                  //视频流类型
-        mdp.port                        = "0";                      //动态约定端口
-        mdp.proto                       = "RTP/AVP";                //协议 udp
-        mdp.fmt                         = "96" ;                    //类型
-        mdp.attributes.emplace_back("control:trackID=0");        //流id
-        mdp.attributes.emplace_back("rtpmap:96 H264/90000");     //时间基
-        mdp.attributes.emplace_back(std::string("fmtp:96 packetization-mode=1;"));
-        return ;
-    }
 
-        auto add_audio_sdp(sdp & sdp,std::string path)->void
+    //返回无权指针
+    session * create_session(int fd)
     {
-        auto & mdp =sdp.mediaDescriptions.emplace_back();   
-        mdp.media                       = "audio";                  //视频流类型
-        mdp.port                        = "0";                      //动态约定端口
-        mdp.proto                       = "RTP/AVP";                //协议 udp
-        mdp.fmt                         = "97" ;                    //类型
-        mdp.attributes.emplace_back("control:trackID=1");         //流id
-        mdp.attributes.emplace_back("rtpmap:97 mpeg4-generic/44100/2;");     
-        mdp.attributes.emplace_back("fmtp:97 profile-level-id=1;sizelength=13;indexlength=3;indexdeltalength=3;config=1210;");     
-        return ;
+        std::shared_ptr<session> ptr( new session);
+        auto temp1 =  sessions_by_id.emplace(current_session_index++,ptr);
+        auto session_id  = temp1.first->first;
+        auto temp2 =  sessions_by_fd.emplace(fd,ptr);
+        auto session_obj = temp1.first->second.get();
+        session_obj->id = session_id; 
+        return session_obj;
     }
+private:
 
 public:
+    std::shared_ptr<server_config> cfg;
     int current_session_index = 0;
     std::filesystem::path workpath;
-    std::vector<rtp_server> rtp_servers;
     //<id,s* Session>
     std::map<int,std::shared_ptr<session>> sessions_by_id;
     //<fd,s* Session>

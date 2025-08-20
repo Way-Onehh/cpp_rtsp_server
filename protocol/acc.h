@@ -27,7 +27,7 @@ using adts_header = uint8_t[7];
 #define FRAME_LEN_A(h)      (h[3] & 0x03)                          // 用于frame_length 
  
 // 提取第5-6字节字段 
-#define FRAME_LEN_B(h)      (h[4])                            // 用于frame_length
+#define FRAME_LEN_B(h)      (h[4])                                 // 用于frame_length
 #define FRAME_LEN_C(h)      (h[5] >> 5)                            // 用于frame_length 
 #define BUFFER_FULLNESS_A(h)(h[5] & 0x1F)                          // 用于buffer_fullness 
  

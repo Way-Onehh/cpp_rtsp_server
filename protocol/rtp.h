@@ -3,10 +3,12 @@
 #define MAX_RTP_PKT_SIZE 1400
 #define NALU_START_CODE 0x00000001
 #define NALU_START_CODE_SHORT 0x000001 
+#define ENDCODE SIZE_MAX //rtp 大小被限制
 
 #pragma pack(1)
 // RTP header
-struct rtp_header {
+struct rtp_header 
+{
     uint8_t csrc_count          :4; // cc计数器
     uint8_t extension           :1; // 扩展位
     uint8_t padding             :1; // 填充位

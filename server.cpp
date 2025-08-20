@@ -1,5 +1,6 @@
 #include<utility/log.hpp>
 #include<utility/threadpool.hpp>
+#include<network/udp_config.h>
 #include<network/rtsp_server.hpp>
 
 int main(int argc, char const *argv[])
@@ -9,8 +10,8 @@ int main(int argc, char const *argv[])
         DLOG(INFO,"%s","threadpoll start");
         threadpool polls(12);
 
-        rtsp_server srv(polls,"../data");
-        srv.bind("0.0.0.0",8554,8001,8002);
+        rtsp_server srv(polls,new udp_config,"../data");
+        srv.bind("0.0.0.0",{8554,8001,8002});
         srv.listen();
         srv.start();
         DLOG(INFO,"server started at %s:%d",srv.addr,srv.port);
