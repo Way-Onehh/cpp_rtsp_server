@@ -7,9 +7,11 @@
 class udpchannel : public channel
 {
 public:
-    void set(int fd , sockaddr addr) override;
+    void set(int fd , void * ) override;
     
     ssize_t send(uint8_t *buf,size_t n) override;
+
+    void close() override;
 public:
     int fd_;
     sockaddr addr_;

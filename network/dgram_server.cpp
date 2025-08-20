@@ -50,10 +50,11 @@ void dgram_server::handle_dgram(const sockaddr *addr, socklen_t socklen,char * b
 
 void dgram_server::start()
 {
-    auto call = [this]()
+    auto obj =  std::enable_shared_from_this<dgram_server>::shared_from_this();
+    auto call = [obj]()
     {
-        while (!stop) {
-            this->handle_client();
+        while (!obj->stop) {
+            obj->handle_client();
         }
     };
     polls.submit(call);

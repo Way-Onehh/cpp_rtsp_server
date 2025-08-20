@@ -1,11 +1,15 @@
+#include <initializer_list>
+#include <memory>
 #include <network/udp_config.h>
+#include <network/udpchannel.h>
 
-void udp_config::init(threadpool * pools) 
+void udp_config::init(threadpool * pools,std::map<int,sockaddr> *clients) 
 {   
+    clients_ = clients;
     pools_ = pools;
     //初始化两个rtp服务器
-    rtp_servers.push_back(*pools_);
-    rtp_servers.push_back(*pools_);
+    rtp_servers.push_back(std::make_shared<rtp_server>(*pools_));
+    rtp_servers.push_back(std::make_shared<rtp_server>(*pools_));
 }
 
 void udp_config::bind(std::string_view addr,std::initializer_list<int> list)
@@ -13,15 +17,15 @@ void udp_config::bind(std::string_view addr,std::initializer_list<int> list)
     //绑定端口
     int port1 = *(list.begin()+1);
     int port2 = *(list.begin()+2);
-    rtp_servers[0].bind(addr,port1);
-    rtp_servers[1].bind(addr,port2);
+    rtp_servers[0]->bind(addr,port1);
+    rtp_servers[1]->bind(addr,port2);
 }
 
 void udp_config::start()
 {
     //开始服务器
-    rtp_servers[0].start();
-    rtp_servers[1].start();
+    rtp_servers[0]->start();
+    rtp_servers[1]->start();
 }
 
 void udp_config::add_video_sdp(sdp & sdp,std::string path)
@@ -52,10 +56,22 @@ void udp_config::add_audio_sdp(sdp & sdp,std::string path)
 
 std::string udp_config::Transport(int port1 ,int SSRC)
 {
-    return  "RTP/AVP;unicast;client_port="+std::to_string(port1)+";server_port="+std::to_string(rtp_servers[0].port)+";ssrc="+std::to_string(SSRC);
+    return  "RTP/AVP;unicast;client_port="+std::to_string(port1)+";server_port="+std::to_string(rtp_servers[0]->port)+";ssrc="+std::to_string(SSRC);
 }
 
- void * udp_config::getprofile()
- {
-    return &this->rtp_servers[0].getfd();
- }
+
+std::shared_ptr<channel> udp_config::getchannel(std::initializer_list<int> args)
+{
+    auto it = args.begin();
+    int fd      = *it++;
+    int port    = *it;
+   
+    sockaddr_in addr;
+    auto &tcp_addr = this->clients_->at(fd);
+    memcpy(&addr,&tcp_addr,sizeof(sockaddr_in));
+    addr.sin_port = htons(port);
+    
+    auto ch = std::make_shared<udpchannel>();
+    ch->set(this->rtp_servers[0]->getfd(),&addr);
+    return  ch;
+}

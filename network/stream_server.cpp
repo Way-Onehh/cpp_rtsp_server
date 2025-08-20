@@ -1,5 +1,10 @@
 #include <network/stream_server.h>
 
+std::function<void(int)> stream_server::handle_close;
+std::map<int,sockaddr> stream_server::clients;
+int stream_server::epoll_fd = -1;
+
+
 stream_server::stream_server(threadpool & polls) :pools(polls),stop(false)
 {
     //初始化服务器fd
@@ -59,12 +64,14 @@ int stream_server::accept_epoll()
 }
 
 void stream_server::start()
-{
-    auto call = [this]()
-    {
-        this->accept_epoll();
-        if(!this->stop)
-        pools.submit(std::bind(&stream_server::start,this));
+{   
+    
+    auto obj =  std::enable_shared_from_this<stream_server>::shared_from_this();
+    auto call = [obj]()
+    { 
+        obj->accept_epoll();
+        if(!obj->stop)
+        obj->pools.submit(std::bind(&stream_server::start,obj));
     };
     pools.submit(call);
 }
@@ -82,16 +89,11 @@ bool stream_server::read(int fd,std::string &packet)
         else if (bytes <= 0) { 
             if(handle_close)
                 handle_close(fd);
-            close(fd);
-            DLOG(DISCONN, "fd: %d", fd);
-            epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, nullptr);
-            clients.erase(fd);
             break;
         } 
         else {
             packet.append(buf, bytes);
             has_data = 1;
-            //DLOG(INFO,"%d",bytes);
         }   
     }
     return has_data;

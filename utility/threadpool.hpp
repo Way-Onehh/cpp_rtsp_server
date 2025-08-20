@@ -5,7 +5,7 @@
 
 class threadpool {
 public:
-    threadpool(size_t threads_num) :  threadpool_imp(threads_num) {
+    threadpool(size_t threads_num) :  _imp(threads_num) {
     }
 
     template <typename F, typename... Args>
@@ -17,17 +17,17 @@ public:
  
         std::future<ReturnType> res = task->get_future();
         {
-            std::unique_lock<std::mutex> lock(threadpool_imp.queue_mutex);
-            if (threadpool_imp.stop) throw std::runtime_error("ThreadPool已停止");
-            threadpool_imp.tasks.emplace([task]()  { (*task)(); });
+            std::unique_lock<std::mutex> lock(_imp.queue_mutex);
+            if (_imp.stop) throw std::runtime_error("ThreadPool已停止");
+            _imp.tasks.emplace([task]()  { (*task)(); });
         }
-        threadpool_imp.cv.notify_one(); 
+        _imp.cv.notify_one(); 
         return res;
     }
     void keep()
     {
-        this->threadpool_imp.keep();
+        this->_imp.keep();
     }
 private:
-    threadpool_imp  threadpool_imp;
+    threadpool_imp  _imp;
 };

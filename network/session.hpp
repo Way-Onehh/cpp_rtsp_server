@@ -30,28 +30,20 @@ public:
         TEARDOWN,
         WAIT,
     };
-    void setup0(threadpool & pools, int fd , sockaddr addr,std::filesystem::path path0,uint32_t ssrc0,uint32_t dtime0)
+    void setup0(threadpool & pools, std::shared_ptr<channel>  ch_ptr,std::filesystem::path path0,uint32_t ssrc0,uint32_t dtime0)
     {
         pools_ = & pools;
-        if(ch0 ==nullptr)
-        {
-            ch0.reset(new udpchannel);
-            ch0->set(fd,addr);
-        }
+        ch0 = ch_ptr;
         H264_rtp_packetizer.frame_generator.open(path0);
         H264_rtp_packetizer.packetizer.set(ssrc0,dtime0);
         status = SETUP;
         setup_flag0 = 1;
     }
 
-    void setup1(threadpool & pools, int fd , sockaddr addr,std::filesystem::path path1,uint32_t ssrc1,uint32_t dtime1)
+    void setup1(threadpool & pools ,std::shared_ptr<channel>  ch_ptr,std::filesystem::path path1,uint32_t ssrc1,uint32_t dtime1)
     {
         pools_ = & pools;
-        if(ch1 ==nullptr)
-        {
-            ch1.reset(new udpchannel);
-            ch1->set(fd,addr);
-        }
+        ch1 = ch_ptr;
         AAC_rtp_packetizer.frame_generator.open(path1);
         AAC_rtp_packetizer.packetizer.set(ssrc1,dtime1);
         status = SETUP;

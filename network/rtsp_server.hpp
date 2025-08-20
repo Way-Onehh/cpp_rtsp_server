@@ -23,27 +23,30 @@
 
 #define BUFSIZE 1024
 
-class rtsp_server : public stream_server
+class rtsp_server : public stream_server 
 {
 public:
     rtsp_server(threadpool &polls,server_config * server_config,std::filesystem::path workpath = std::filesystem::current_path()): stream_server(polls)
     {   
         cfg.reset(server_config);
-        cfg->init(&polls);
+        cfg->init(&polls,&clients);
         this->workpath = workpath;
         if(!std::filesystem::exists(workpath / "h264"))
             std::filesystem::create_directory(workpath / "h264");  
         if(!std::filesystem::exists(workpath / "aac"))
             std::filesystem::create_directory(workpath / "aac");  
-        stream_server::handle_close =[this](int fd)
-        {   
+        CLOSE_SLOT_START
             auto it = sessions_by_fd.find(fd);
             if(it == sessions_by_fd.end())  return ;
             it->second->teardown();
             int id = it->second->id;
+            if(it->second->ch0)
+            {it->second->ch0->close();}
+            if(it->second->ch1)
+            {it->second->ch1->close();}
             this->sessions_by_id.erase(sessions_by_id.find(id));
             this->sessions_by_fd.erase(it);
-        };
+        CLOSE_SLOT_END
     };
     
     void bind(std::string_view addr,std::initializer_list<int> list)
@@ -180,8 +183,8 @@ private:
         auto it = req.keys.find("Transport");
         if(it != req.keys.end()  && !root.empty() && !streamid.empty())
         {
-            int port1 , port2;
-            if(request::getport(it->second,port1, port2))
+            int port1_or_channel_n1 , port1_or_channel_n2;
+            if(request::getport(it->second,port1_or_channel_n1, port1_or_channel_n2) || request::getchannel(it->second,port1_or_channel_n1, port1_or_channel_n2))
             {   
                 auto session_it =  req.keys.find("Session");
                 if(session_it == req.keys.end())
@@ -208,9 +211,6 @@ private:
 
                 if(flag)
                 {
-                    sockaddr_in addr;
-                    memcpy(&addr,&stream_server::clients[fd],sizeof(sockaddr_in));
-                    addr.sin_port = htons(port1);
                     auto path =   workpath/"h264"/root;
                     int SSRC ;
                     
@@ -218,14 +218,14 @@ private:
                     {
                         path =   workpath/"h264"/root += ".h264";
                         SSRC = session_id+100;
-                        session_obj->setup0(pools, *static_cast<int*>( cfg->getprofile()),*reinterpret_cast<sockaddr*>(&addr),path,SSRC,90000/25);
+                        session_obj->setup0(pools, cfg->getchannel({fd,port1_or_channel_n1}),path,SSRC,90000/25);
                     }
 
                     if(streamid == "trackID=1")
                     {
                         path =   workpath/"aac"/root += ".aac";
                         SSRC = session_id+101;
-                        session_obj->setup1(pools,*static_cast<int*>( cfg->getprofile()),*reinterpret_cast<sockaddr*>(&addr),path,SSRC,1024);
+                        session_obj->setup1(pools,cfg->getchannel({fd,port1_or_channel_n1}),path,SSRC,1024);
                     }
 
                     res.version                 = 0;
@@ -233,14 +233,14 @@ private:
                     res.reason                  = "OK";
                     res.CSeq                    =  req.CSeq;
                     res.keys["Session"]         = std::to_string(session_id);
-                    res.keys["Transport"]       = cfg->Transport(port1,SSRC);//不支持rtcp
+                    res.keys["Transport"]       = cfg->Transport(port1_or_channel_n1,SSRC);//不支持rtcp
                 }
             }
 
         }
         auto && ret = res.serialize();
         write(fd,ret.data(),ret.size());
-        DLOG(SETUP,"id %d %s ",session_id,"reply");
+        DLOG(SETU,"id %d %s ",session_id,"reply");
         return true;
     }
 
@@ -251,11 +251,7 @@ private:
         res.code                        = 404;
         res.reason                      = "NO Found";
         res.CSeq                        =  req.CSeq;
-
         auto session_id =  std::stoi(req.keys["Session"]);
-
-        sessions_by_id[session_id]->play();
-
         res.version                 = 0;
         res.code                    = 200;
         res.reason                  = "OK";
@@ -265,6 +261,7 @@ private:
         auto && ret = res.serialize();
         write(fd,ret.data(),ret.size());
 
+        sessions_by_id[session_id]->play();
         DLOG(PLAY,"id %d %s ",session_id,"reply");
         return true;
     }   

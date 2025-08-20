@@ -1,8 +1,9 @@
 #include <network/udpchannel.h>
-void udpchannel::set(int fd , sockaddr addr)
+#include <sys/socket.h>
+void udpchannel::set(int fd , void * addr)
 {
-    fd_ = fd;
-    addr_ = addr; 
+    fd_     = fd;
+    addr_   = *(sockaddr *) addr; 
 }
 
 ssize_t  udpchannel::send(uint8_t *buf,size_t n)
@@ -11,3 +12,5 @@ ssize_t  udpchannel::send(uint8_t *buf,size_t n)
     auto bytes = sendto(fd_,buf,n,0,&addr_,socklen);
     return bytes;
 }
+
+void udpchannel::close(){}

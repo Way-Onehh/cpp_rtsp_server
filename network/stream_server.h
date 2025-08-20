@@ -3,6 +3,7 @@
 #include <functional>
 #include <map>
 #include <memory.h>
+#include <memory>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -12,7 +13,7 @@
 #include <utility/log.hpp>
 #include <utility/threadpool.hpp>
 
-class stream_server
+class stream_server :public std::enable_shared_from_this<stream_server>
 {
 public: 
     stream_server(threadpool & polls);
@@ -48,15 +49,17 @@ private:
 public:
     const char * addr = nullptr;
     int port = -1;
-    std::map<int,sockaddr> clients;
+    static std::map<int,sockaddr> clients;
     threadpool & pools;
-    std::function<void(int)> handle_close;
+    static std::function<void(int)> handle_close; 
+    static  int epoll_fd;
 private:
     int srv_fd = -1;
-    int epoll_fd  = -1;
     struct epoll_event ev,events[1024] = {0};
     bool stop = true;
-
 protected:
 
 };
+
+#define  CLOSE_SLOT_START         stream_server::handle_close =[this](int fd)        { static std::mutex  mtx;  std::lock_guard lg(mtx);
+#define  CLOSE_SLOT_END           ::close(fd);DLOG(DISCONN, "fd: %d", fd);::epoll_ctl(stream_server::epoll_fd, EPOLL_CTL_DEL, fd, nullptr);stream_server::clients.erase(fd);};

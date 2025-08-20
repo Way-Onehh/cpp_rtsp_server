@@ -15,7 +15,7 @@
 //无需 listen accept 产生新的fd
 //sockfd  bind 地址 从sockfd读取 报文与地址 直接发送给指定地址
 //eg server  或者 client  关闭不会发送报文是无感的
-class dgram_server
+class dgram_server : public std::enable_shared_from_this<dgram_server>
 {
 public:
     dgram_server(threadpool & polls);

@@ -105,7 +105,21 @@ public:
         std::regex regex(R"(client_port=(\d+)-(\d+))");
         std::smatch smatch;
         bool ret = std::regex_search(Transport,smatch,regex);
+        if(smatch[1].matched)
         p1 = std::stoi(smatch[1]);
+        if(smatch[2].matched)
+        p2 = std::stoi(smatch[2]);
+        return ret;
+    }
+
+    static bool  getchannel(const std::string &Transport,int &p1 ,int &p2)
+    {
+        std::regex regex(R"(interleaved=(\d+)-(\d+))");
+        std::smatch smatch;
+        bool ret = std::regex_search(Transport,smatch,regex);
+        if(smatch[1].matched)
+        p1 = std::stoi(smatch[1]);
+        if(smatch[2].matched)
         p2 = std::stoi(smatch[2]);
         return ret;
     }

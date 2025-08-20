@@ -91,8 +91,4 @@ using adts_header = uint8_t[7];
 } while(0)
  
 // 初始化ADTS头部的宏 固定0xFFF
-#define SET_SYNCWORD(h) do { \
-    memset(h, 0, sizeof(adts_header)); \
-    SET_SYNCWORD_HI(h, 0xFFF); \
-    SET_SYNCWORD_LO(h, 0xFFF); \
-} while(0)
+#define SET_SYNCWORD(h) do {memset(h, 0, sizeof(adts_header));SET_SYNCWORD_HI(h, 0xFFF);SET_SYNCWORD_LO(h, 0xFFF);} while(0)
