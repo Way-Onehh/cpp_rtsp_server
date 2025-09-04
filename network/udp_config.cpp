@@ -1,0 +1,100 @@
+#include <initializer_list>
+#include <memory>
+#include <network/udp_config.h>
+#include <network/udpchannel.h>
+#include <sys/socket.h>
+
+void udp_config::init(threadpool * pools,std::map<int,sockaddr> *clients) 
+{   
+    clients_ = clients;
+    pools_ = pools;
+    //初始化两个rtp服务器
+    rtp_servers.push_back(std::make_shared<rtp_server>(*pools_));
+    rtp_servers.push_back(std::make_shared<rtp_server>(*pools_));
+}
+
+void udp_config::bind(std::string_view addr,std::initializer_list<int> list)
+{   
+    //绑定端口
+    int port1 = *(list.begin()+1);
+    int port2 = *(list.begin()+2);
+    rtp_servers[0]->bind(addr,port1);
+    rtp_servers[1]->bind(addr,port2);
+}
+
+void udp_config::start(void * ptr)
+{
+    //开始服务器
+    rtp_servers[0]->start();
+    rtp_servers[1]->start();
+}
+
+void udp_config::add_video_sdp(sdp & sdp ,int time_base)
+{
+    auto & mdp =sdp.mediaDescriptions.emplace_back();   
+    mdp.media                       = "video";                  //视频流类型
+    mdp.port                        = "0";                      //动态约定端口
+    mdp.proto                       = "RTP/AVP";                //协议 udp
+    mdp.fmt                         = "96" ;                    //类型
+    mdp.attributes.emplace_back("control:trackID=0");        //流id
+    mdp.attributes.emplace_back(std::string("rtpmap:96 H264/")+std::to_string(time_base));   //时间基
+    mdp.attributes.emplace_back(std::string("fmtp:96 packetization-mode=1;"));
+    return ;
+}
+
+void udp_config::add_audio_sdp(sdp & sdp ,int time_base)
+{
+    auto & mdp =sdp.mediaDescriptions.emplace_back();   
+    mdp.media                       = "audio";                  //视频流类型
+    mdp.port                        = "0";                      //动态约定端口
+    mdp.proto                       = "RTP/AVP";                //协议 udp
+    mdp.fmt                         = "97" ;                    //类型
+    mdp.attributes.emplace_back("control:trackID=1");         //流id
+    mdp.attributes.emplace_back(std::string("rtpmap:97 mpeg4-generic/")+std::to_string(time_base)+"/2;");     
+    mdp.attributes.emplace_back("fmtp:97 profile-level-id=1;sizelength=13;indexlength=3;indexdeltalength=3;config=1210;");     
+    return ;
+}
+
+std::string udp_config::Transport(int port1 ,int port2)
+{
+    return "RTP/AVP;unicast;client_port="+std::to_string(port1)+"-"+std::to_string(port2)+";server_port="+std::to_string(rtp_servers[0]->port)+"-"+std::to_string(rtp_servers[1]->port);
+}
+
+
+std::shared_ptr<channel> udp_config::getchannel(std::initializer_list<int> args)
+{
+    auto it = args.begin();
+    int fd      = *it++;
+    int port    = *it;
+   
+    sockaddr_in addr;
+    auto &tcp_addr = this->clients_->at(fd);
+    memcpy(&addr,&tcp_addr,sizeof(sockaddr_in));
+    addr.sin_port = htons(port);
+    
+
+    auto ch = std::make_shared<udpchannel>();
+
+    int index = port % 2;
+    auto rtp_server = this->rtp_servers[index];
+    ch->set(rtp_server->getfd(),&addr);
+    rtp_server->factory_signal.create
+    (
+    *reinterpret_cast<sockaddr *>(&addr) ,
+        [ch](std::pair<std::shared_ptr<unsigned char[]>, unsigned long> args)
+        {
+            ch->on_recv.emit(args);
+        }
+    );
+
+    ch->on_close.connect
+    (
+        [rtp_server](int fd,void * addr)
+        {
+            auto  addr_   = *(sockaddr *) addr; 
+            rtp_server->factory_signal.remove(addr_);
+        }
+    );
+    
+    return  ch;
+}
